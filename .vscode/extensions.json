@@ -1,0 +1,16 @@
+{
+  "unwantedRecommendations": [
+    "ms-vscode.vscode-typescript-tslint-plugin",
+    "eg2.tslint"
+  ],
+  "recommendations": [
+    "aaron-bond.better-comments",
+    "streetsidesoftware.code-spell-checker",
+    "mikestead.dotenv",
+    "EditorConfig.EditorConfig",
+    "dbaeumer.vscode-eslint",
+    "streetsidesoftware.code-spell-checker-italian",
+    "Orta.vscode-jest",
+    "bruno-api-client.bruno"
+  ]
+}
