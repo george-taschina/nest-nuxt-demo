@@ -5,4 +5,7 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true,
   },
+  devServer: {
+    port: 8000,
+  },
 });

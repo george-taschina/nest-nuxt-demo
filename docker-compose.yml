@@ -1,0 +1,47 @@
+services:
+  george_devel_backend:
+    build: ${PWD}/docker/devel
+    container_name: george_devel_backend
+    hostname: george_be
+    command: ['pnpm', 'run', 'backend:start:dev']
+    ports:
+      - '3000:3000'
+    tty: true
+    environment:
+      - CI_JOB_TOKEN=${CI_JOB_TOKEN}
+    volumes:
+      - ./:/app/
+    depends_on:
+      - george_mysql
+    user: 1000:1000
+  george_devel_frontend:
+    build: ${PWD}/docker/devel
+    container_name: george_devel_frontend
+    hostname: george_fe
+    command: ['pnpm', 'run', 'frontend:start:dev']
+    ports:
+      - '8000:8000'
+    tty: true
+    environment:
+      - CI_JOB_TOKEN=${CI_JOB_TOKEN}
+    volumes:
+      - ./:/app/
+    depends_on:
+      - george_devel_backend
+      - george_mysql
+  george_mysql:
+    image: mysql:5.7
+    container_name: george_mysql
+    hostname: george_mysql
+    ports:
+      - '3306:3306'
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=george
+      - MYSQL_USER=george
+      - MYSQL_PASSWORD=george
+      - TZ=Europe/Rome
+    volumes:
+      - george_mysql_volume:/var/lib/mysql
+volumes:
+  george_mysql_volume:
