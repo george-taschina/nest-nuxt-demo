@@ -8,8 +8,8 @@
     ]
   },
   "scripts": {
-    "backend:start:dev": "pnpm --C packages/backend run start:dev",
-    "frontend:start:dev": "pnpm --C packages/frontend run dev"
+    "backend:start:dev": "npm --C packages/backend run start:dev",
+    "frontend:start:dev": "npm --C packages/frontend run dev"
   },
   "dependencies": {
     "fp-ts": "^2.16.9",

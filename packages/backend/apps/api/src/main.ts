@@ -45,7 +45,13 @@ async function bootstrap() {
     app.enableCors({
       allowedHeaders: '*',
       methods: '*',
-      origin: (origin, callback) => {
+      origin: (
+        origin: string,
+        callback: (
+          arg0: InternalError | null,
+          arg1: boolean | undefined
+        ) => void
+      ) => {
         if (
           !origin ||
           cors.whitelist.findIndex(
@@ -55,7 +61,10 @@ async function bootstrap() {
           callback(null, true);
         } else {
           logger.errorWithoutReport(`blocked cors for: ${origin}`);
-          callback(new InternalError('Not allowed by CORS'));
+          callback(
+            new InternalError('Not allowed by CORS', { cause: { origin } }),
+            false
+          );
         }
       },
     });

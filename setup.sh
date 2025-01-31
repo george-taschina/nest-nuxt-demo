@@ -12,5 +12,5 @@ docker volume rm george_el_mysql_volume
 $DOCKER_COMPOSE pull
 $DOCKER_COMPOSE build
 $DOCKER_COMPOSE up -d --force-recreate --remove-orphans
-docker exec george_devel_backend pnpm install
+docker exec george_devel_backend npm install
 $DOCKER_COMPOSE stop

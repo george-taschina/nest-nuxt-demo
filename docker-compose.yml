@@ -3,7 +3,7 @@ services:
     build: ${PWD}/docker/devel
     container_name: george_devel_backend
     hostname: george_be
-    command: ['pnpm', 'run', 'backend:start:dev']
+    command: ['npm', 'run', 'backend:start:dev']
     ports:
       - '3000:3000'
     tty: true
@@ -18,7 +18,7 @@ services:
     build: ${PWD}/docker/devel
     container_name: george_devel_frontend
     hostname: george_fe
-    command: ['pnpm', 'run', 'frontend:start:dev']
+    command: ['npm', 'run', 'frontend:start:dev']
     ports:
       - '8000:8000'
     tty: true

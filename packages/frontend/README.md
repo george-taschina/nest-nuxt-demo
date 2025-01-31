@@ -10,8 +10,8 @@ Make sure to install dependencies:
 # npm
 npm install
 
-# pnpm
-pnpm install
+# npm
+npm install
 
 # yarn
 yarn install
@@ -28,8 +28,8 @@ Start the development server on `http://localhost:3000`:
 # npm
 npm run dev
 
-# pnpm
-pnpm dev
+# npm
+npm dev
 
 # yarn
 yarn dev
@@ -46,8 +46,8 @@ Build the application for production:
 # npm
 npm run build
 
-# pnpm
-pnpm build
+# npm
+npm build
 
 # yarn
 yarn build
@@ -62,8 +62,8 @@ Locally preview production build:
 # npm
 npm run preview
 
-# pnpm
-pnpm preview
+# npm
+npm preview
 
 # yarn
 yarn preview
