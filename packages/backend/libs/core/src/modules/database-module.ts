@@ -19,4 +19,6 @@ export const databaseModuleFactory = () =>
       debug: config.debug === 'true',
       autoLoadEntities: true,
     }),
+    inject: [databaseConfigLoader.KEY],
+    driver: MySqlDriver,
   });
