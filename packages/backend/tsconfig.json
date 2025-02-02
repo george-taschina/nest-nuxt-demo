@@ -2,8 +2,9 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
     "resolveJsonModule": true,
     "target": "es2022",
     "sourceMap": true,
