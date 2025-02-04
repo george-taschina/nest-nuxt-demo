@@ -1,7 +1,10 @@
 import { DatabaseConfig } from '../types/database-config';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { ConfigModule } from '@nestjs/config';
-import { databaseConfigLoader } from '../config/database-config.loader';
+import {
+  DATABASE_CONFIG_KEY,
+  databaseConfigLoader,
+} from '../config/database-config.loader';
 import { MySqlDriver } from '@mikro-orm/mysql';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 
@@ -21,5 +24,5 @@ export const databaseModuleFactory = async () =>
       autoLoadEntities: true,
       discovery: { disableDynamicFileAccess: true },
     }),
-    inject: [databaseConfigLoader.KEY],
+    inject: [DATABASE_CONFIG_KEY],
   });
