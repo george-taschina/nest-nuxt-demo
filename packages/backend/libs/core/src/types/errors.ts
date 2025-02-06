@@ -106,6 +106,14 @@ export class DatabaseError extends ApplicationExtendedException {
   }
 }
 
+export class CacheError extends ApplicationExtendedException {
+  private _cacheError = 'cacheError' as const;
+
+  public get tag(): 'cacheError' {
+    return this._cacheError;
+  }
+}
+
 export class IntegrationError extends ApplicationExtendedException {
   private _integrationError = 'integrationError' as const;
 

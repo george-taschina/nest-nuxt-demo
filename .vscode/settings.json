@@ -8,6 +8,11 @@
     "comments": false,
     "strings": false
   },
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
   "editor.acceptSuggestionOnCommitCharacter": true,
   "cSpell.language": "en,it",
   "cSpell.customDictionaries": {
