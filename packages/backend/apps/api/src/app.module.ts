@@ -1,4 +1,4 @@
-import { TourModule } from '../../../libs/book/src/tour.module';
+import { TourModule } from '../../../libs/tour/src/tour.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';

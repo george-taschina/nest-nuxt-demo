@@ -1,4 +1,4 @@
-import { Tour } from '@has-george-read-backend/book/models/tour.entity';
+import { Tour } from 'libs/tour/src/models/tour.entity';
 import type { EntityManager } from '@mikro-orm/core';
 import { Seeder } from '@mikro-orm/seeder';
 

@@ -19,13 +19,13 @@
         "tsConfigPath": "apps/api/tsconfig.app.json"
       }
     },
-    "book": {
+    "tour": {
       "type": "library",
-      "root": "libs/book",
+      "root": "libs/tour",
       "entryFile": "index",
-      "sourceRoot": "libs/book/src",
+      "sourceRoot": "libs/tour/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/book/tsconfig.lib.json"
+        "tsConfigPath": "libs/tour/tsconfig.lib.json"
       }
     }
   }

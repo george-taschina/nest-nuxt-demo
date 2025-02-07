@@ -7,10 +7,16 @@ import { initSentry } from '@has-george-read-backend/core/logger/sentry';
 import helmet from 'helmet';
 import * as Sentry from '@sentry/node';
 import { json } from 'express';
-import { ValidationPipe, VersioningType } from '@nestjs/common';
+import {
+  INestApplication,
+  ValidationPipe,
+  VersioningType,
+} from '@nestjs/common';
 import { AppConfig } from './types/app-config';
 import { APP_CONFIG_KEY } from './config/app-config.loader';
 import { InternalError } from '@has-george-read-backend/core/types/errors';
+import { isProd } from '@has-george-read-backend/core/utils/environments';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 SourceMap.install();
 
@@ -24,7 +30,6 @@ async function bootstrap() {
   app.use(helmet());
   app.use(json({ limit: '100kb' }));
 
-  app.setGlobalPrefix('api');
   app.enableVersioning({
     defaultVersion: '1',
     type: VersioningType.URI,
@@ -72,6 +77,11 @@ async function bootstrap() {
     app.enableCors();
   }
 
+  if (!isProd()) {
+    logger.log('OpenAPI Docs Enabled');
+    loadOpenApi(app, 'docs');
+  }
+
   const { PORT = 3000 } = process.env;
 
   app.enableShutdownHooks();
@@ -83,3 +93,17 @@ async function bootstrap() {
   Sentry.setupExpressErrorHandler(app);
 }
 bootstrap();
+
+function loadOpenApi(app: INestApplication, path: string) {
+  const config = new DocumentBuilder()
+    .setTitle('We Road Demo')
+    .setDescription('The We Road API description')
+    .setVersion('1.0')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+
+  SwaggerModule.setup(path, app, document, {
+    useGlobalPrefix: true,
+  });
+}

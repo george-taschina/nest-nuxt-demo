@@ -19,6 +19,6 @@ import { CacheService } from './services/redis.service';
 })
 export class CoreModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggingMiddleware).forRoutes('*');
+    consumer.apply(LoggingMiddleware).forRoutes('*path');
   }
 }

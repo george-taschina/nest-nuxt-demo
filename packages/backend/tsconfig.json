@@ -12,8 +12,8 @@
     "baseUrl": "./",
     "incremental": true,
     "paths": {
-      "@has-george-read-backend/book": ["libs/book/src"],
-      "@has-george-read-backend/book/*": ["libs/book/src/*"],
+      "@has-george-read-backend/tour": ["libs/tour/src"],
+      "@has-george-read-backend/tour/*": ["libs/tour/src/*"],
       "@has-george-read-backend/core": ["libs/core/src"],
       "@has-george-read-backend/core/*": ["libs/core/src/*"]
     }
