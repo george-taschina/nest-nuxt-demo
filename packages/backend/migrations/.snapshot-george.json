@@ -5,16 +5,16 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "int",
-          "unsigned": true,
-          "autoincrement": true,
-          "primary": true,
+          "type": "varchar(36)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
           "nullable": false,
-          "length": null,
-          "mappedType": "integer"
+          "length": 36,
+          "mappedType": "string"
         },
-        "title": {
-          "name": "title",
+        "slug": {
+          "name": "slug",
           "type": "varchar(255)",
           "unsigned": false,
           "autoincrement": false,
@@ -23,8 +23,8 @@
           "length": 255,
           "mappedType": "string"
         },
-        "author": {
-          "name": "author",
+        "name": {
+          "name": "name",
           "type": "varchar(255)",
           "unsigned": false,
           "autoincrement": false,
@@ -33,8 +33,38 @@
           "length": 255,
           "mappedType": "string"
         },
-        "pages": {
-          "name": "pages",
+        "description": {
+          "name": "description",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": null,
+          "mappedType": "text"
+        },
+        "starting_date": {
+          "name": "starting_date",
+          "type": "date",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": null,
+          "mappedType": "date"
+        },
+        "ending_date": {
+          "name": "ending_date",
+          "type": "date",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": null,
+          "mappedType": "date"
+        },
+        "price": {
+          "name": "price",
           "type": "int",
           "unsigned": false,
           "autoincrement": false,
@@ -42,10 +72,70 @@
           "nullable": false,
           "length": null,
           "mappedType": "integer"
+        },
+        "moods_nature": {
+          "name": "moods_nature",
+          "type": "smallint",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": null,
+          "mappedType": "smallint"
+        },
+        "moods_relax": {
+          "name": "moods_relax",
+          "type": "smallint",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": null,
+          "mappedType": "smallint"
+        },
+        "moods_history": {
+          "name": "moods_history",
+          "type": "smallint",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": null,
+          "mappedType": "smallint"
+        },
+        "moods_culture": {
+          "name": "moods_culture",
+          "type": "smallint",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": null,
+          "mappedType": "smallint"
+        },
+        "moods_party": {
+          "name": "moods_party",
+          "type": "smallint",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": null,
+          "mappedType": "smallint"
         }
       },
-      "name": "book",
+      "name": "tour",
       "indexes": [
+        {
+          "columnNames": [
+            "slug"
+          ],
+          "composite": false,
+          "keyName": "tour_slug_unique",
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
         {
           "keyName": "PRIMARY",
           "columnNames": [

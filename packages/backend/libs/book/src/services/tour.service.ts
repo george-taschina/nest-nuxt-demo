@@ -1,10 +1,10 @@
 import { BaseService } from '@has-george-read-backend/core/services/base.service';
-import { BookRepository } from './../repositories/book.repository';
+import { TourRepository } from '../repositories/tour.repository';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class BookService extends BaseService {
-  constructor(private readonly BookRepository: BookRepository) {
+export class TourService extends BaseService {
+  constructor(private readonly BookRepository: TourRepository) {
     super();
   }
 

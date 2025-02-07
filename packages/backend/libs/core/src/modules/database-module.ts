@@ -7,6 +7,7 @@ import {
 } from '../config/database-config.loader';
 import { MySqlDriver } from '@mikro-orm/mysql';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
+import { SeedManager } from '@mikro-orm/seeder';
 
 export const databaseModuleFactory = async () =>
   await MikroOrmModule.forRootAsync({
@@ -23,6 +24,7 @@ export const databaseModuleFactory = async () =>
       debug: config.debug === 'true',
       autoLoadEntities: true,
       discovery: { disableDynamicFileAccess: true },
+      extensions: [SeedManager],
     }),
     inject: [DATABASE_CONFIG_KEY],
   });

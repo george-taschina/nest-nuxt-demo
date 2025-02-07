@@ -1,4 +1,4 @@
 import { EntityClass } from '@mikro-orm/core';
-import { Book } from './book.entity';
+import { Tour } from './tour.entity';
 
-export const ENTITIES_LIST: EntityClass<any>[] = [Book];
+export const ENTITIES_LIST: EntityClass<any>[] = [Tour];
