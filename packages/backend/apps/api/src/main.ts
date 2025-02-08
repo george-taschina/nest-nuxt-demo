@@ -35,6 +35,11 @@ async function bootstrap() {
     type: VersioningType.URI,
   });
 
+  if (!isProd()) {
+    logger.log('OpenAPI Docs Enabled');
+    loadOpenApi(app, 'docs');
+  }
+
   app.useGlobalPipes(
     new ValidationPipe({
       always: true,
@@ -77,11 +82,6 @@ async function bootstrap() {
     app.enableCors();
   }
 
-  if (!isProd()) {
-    logger.log('OpenAPI Docs Enabled');
-    loadOpenApi(app, 'docs');
-  }
-
   const { PORT = 3000 } = process.env;
 
   app.enableShutdownHooks();
@@ -103,7 +103,5 @@ function loadOpenApi(app: INestApplication, path: string) {
 
   const document = SwaggerModule.createDocument(app, config);
 
-  SwaggerModule.setup(path, app, document, {
-    useGlobalPrefix: true,
-  });
+  SwaggerModule.setup(path, app, document);
 }

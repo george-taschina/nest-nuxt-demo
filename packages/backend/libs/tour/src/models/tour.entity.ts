@@ -1,8 +1,10 @@
 import {
+  Collection,
   Embeddable,
   Embedded,
   Entity,
   EntityRepositoryType,
+  OneToMany,
   PrimaryKey,
   Property,
   Unique,
@@ -10,6 +12,8 @@ import {
 import { TourRepository } from '../repositories/tour.repository';
 import { v4 } from 'uuid';
 import { ApiProperty } from '@nestjs/swagger';
+import { Reservation } from './reservation.entity';
+import { Booking } from './booking.entity';
 
 @Embeddable()
 export class TourMoods {
@@ -69,6 +73,16 @@ export class Tour {
   @Property({ type: 'integer' })
   @ApiProperty()
   price!: number;
+
+  @Property({ type: 'integer' })
+  @ApiProperty()
+  totalSeats!: number;
+
+  @OneToMany(() => Reservation, (reservation) => reservation.tour)
+  reservations = new Collection<Reservation>(this);
+
+  @OneToMany(() => Booking, (booking) => booking.tour)
+  bookings = new Collection<Booking>(this);
 
   @Embedded(() => TourMoods)
   moods!: TourMoods;
