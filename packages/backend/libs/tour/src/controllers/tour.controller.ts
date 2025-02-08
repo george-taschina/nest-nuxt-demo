@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseInterceptors } from '@nestjs/common';
 import { TourService } from '../services/tour.service';
 import {
   TEmapLeftToHttpError,
@@ -11,8 +11,10 @@ import {
   ApiOkResponse,
   ApiOperation,
 } from '@nestjs/swagger';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @Controller('tours')
+@UseInterceptors(CacheInterceptor)
 export class TourController {
   constructor(private readonly tourService: TourService) {}
 

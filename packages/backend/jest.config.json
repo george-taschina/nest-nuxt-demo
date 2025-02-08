@@ -1,0 +1,24 @@
+{
+    "moduleFileExtensions": ["js", "json", "ts"],
+    "rootDir": ".",
+    "testRegex": ".*\\.spec\\.ts$",
+    "workerIdleMemoryLimit": "800MB",
+    "collectCoverageFrom": ["**/*.(t/s)s", "**/*fixture*"],
+    "coveragePathIgnorePatterns": [
+        "<rootDir>/apps/",
+        "test",
+        "tests"
+    ],
+    "coverageDirectory": "../../coverage",
+    "coverageReporters": [
+        "html", "text", "text-summary", "cobertura"
+    ],
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+        "@has-george-read-backend/core/(.*)": "<rootDir>/libs/core/src/$1",
+        "@has-george-read-backend/core": "<rootDir>/libs/core/src",
+        "@has-george-read-backend/tour/(.*)": "<rootDir>/libs/tour/src/$1",
+        "@has-george-read-backend/tour": "<rootDir>/libs/tour/src"
+    },
+    "preset": "ts-jest"
+}
