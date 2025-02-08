@@ -2,7 +2,10 @@ import { createMock, DeepMocked } from '@golevelup/ts-jest';
 import { TourService } from '@has-george-read-backend/tour/services/tour.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as TE from 'fp-ts/TaskEither';
-import { createFixtureTour } from '../../fixtures/fixture-tour';
+import {
+  createFixtureAvailableTourResponse,
+  createFixtureTour,
+} from '../../fixtures/fixture-tour';
 import { DatabaseError } from '@has-george-read-backend/core/types/errors';
 import { TourRepository } from '@has-george-read-backend/tour/repositories/tour.repository';
 
@@ -26,21 +29,27 @@ describe('TourService', () => {
 
   beforeEach(() => jest.clearAllMocks());
 
-  describe('search', () => {
+  describe('getAvailableTours', () => {
     it('should return tours', async () => {
       const validTour = createFixtureTour();
-      tourRepository.search.mockReturnValueOnce(TE.right([validTour]));
+      const validReponse = createFixtureAvailableTourResponse();
 
-      const result = await tourService.search()();
+      tourRepository.getAvailableTours.mockReturnValueOnce(
+        TE.right([validTour])
+      );
 
-      expect(result).toEqualRight([validTour]);
+      const result = await tourService.getAvailableTours()();
+
+      expect(result).toEqualRight([validReponse]);
     });
 
     it('should return databaseError if repository returns databaseError', async () => {
       const databaseError = new DatabaseError('Error getting tours');
-      tourRepository.search.mockReturnValueOnce(TE.left(databaseError));
+      tourRepository.getAvailableTours.mockReturnValueOnce(
+        TE.left(databaseError)
+      );
 
-      const result = await tourService.search()();
+      const result = await tourService.getAvailableTours()();
 
       expect(result).toEqualLeft(databaseError);
     });

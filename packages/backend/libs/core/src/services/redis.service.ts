@@ -7,7 +7,7 @@ import { CacheError } from '../types/errors';
 export class CacheService {
   constructor(@Inject(CACHE_MANAGER) private cache: Cache) {}
 
-  get(key: string): TE.TaskEither<CacheError, unknown> {
+  get<T>(key: string): TE.TaskEither<CacheError, T | null> {
     return TE.tryCatch(
       () => this.cache.get(key),
       (error) => {

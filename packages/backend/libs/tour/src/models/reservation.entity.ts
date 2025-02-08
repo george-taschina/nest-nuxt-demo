@@ -5,7 +5,6 @@ import {
   ManyToOne,
   PrimaryKey,
   Property,
-  Unique,
 } from '@mikro-orm/core';
 import { ReservationRepository } from '../repositories/reservation.repository';
 import { v4 } from 'uuid';
@@ -32,11 +31,6 @@ export class Reservation {
   @Property({ type: 'integer' })
   @ApiProperty()
   seatsReserved!: number;
-
-  @Property()
-  @Unique()
-  @ApiProperty()
-  reservationToken!: string;
 
   @Property()
   @ApiProperty()

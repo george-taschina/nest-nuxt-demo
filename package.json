@@ -2,11 +2,11 @@
   "name": "has-george-read",
   "version": "1.0.0",
   "private": true,
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
-  },
+  "workspaces": [
+    "packages/backend",
+    "packages/frontend",
+    "packages/shared"
+  ],
   "scripts": {
     "backend:start:dev": "npm --C packages/backend run start:dev",
     "frontend:start:dev": "npm --C packages/frontend run dev"

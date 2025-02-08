@@ -253,16 +253,6 @@
           "length": null,
           "mappedType": "integer"
         },
-        "reservation_token": {
-          "name": "reservation_token",
-          "type": "varchar(255)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 255,
-          "mappedType": "string"
-        },
         "expires_at": {
           "name": "expires_at",
           "type": "datetime",
@@ -305,16 +295,6 @@
           "constraint": false,
           "primary": false,
           "unique": false
-        },
-        {
-          "columnNames": [
-            "reservation_token"
-          ],
-          "composite": false,
-          "keyName": "reservation_reservation_token_unique",
-          "constraint": true,
-          "primary": false,
-          "unique": true
         },
         {
           "columnNames": [

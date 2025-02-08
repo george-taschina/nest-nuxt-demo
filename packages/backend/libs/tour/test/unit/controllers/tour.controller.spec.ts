@@ -3,7 +3,7 @@ import { TourController } from '@has-george-read-backend/tour/controllers/tour.c
 import { TourService } from '@has-george-read-backend/tour/services/tour.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as TE from 'fp-ts/TaskEither';
-import { createFixtureTour } from '../../fixtures/fixture-tour';
+import { createFixtureAvailableTourResponse } from '../../fixtures/fixture-tour';
 import { DatabaseError } from '@has-george-read-backend/core/types/errors';
 import { BadRequestException } from '@nestjs/common';
 
@@ -27,12 +27,12 @@ describe('TourController', () => {
 
   beforeEach(() => jest.clearAllMocks());
 
-  describe('search', () => {
+  describe('getAvailableTours', () => {
     it('should return tours', async () => {
-      const validTour = createFixtureTour();
-      tourService.search.mockReturnValueOnce(TE.right([validTour]));
+      const validTour = createFixtureAvailableTourResponse();
+      tourService.getAvailableTours.mockReturnValueOnce(TE.right([validTour]));
 
-      const result = await tourController.search();
+      const result = await tourController.getAvailableTours();
 
       expect(result.length).toBeGreaterThan(0);
       expect(result[0]).toEqual(validTour);
@@ -40,9 +40,11 @@ describe('TourController', () => {
 
     it('should return BadRequest if databaseError', async () => {
       const databaseError = new DatabaseError('Error getting tours');
-      tourService.search.mockReturnValueOnce(TE.left(databaseError));
+      tourService.getAvailableTours.mockReturnValueOnce(TE.left(databaseError));
 
-      await expect(async () => await tourController.search()).rejects.toThrow(
+      await expect(
+        async () => await tourController.getAvailableTours()
+      ).rejects.toThrow(
         new BadRequestException(
           {
             statusCode: 400,
