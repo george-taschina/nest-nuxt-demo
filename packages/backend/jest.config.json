@@ -20,5 +20,8 @@
         "@has-george-read-backend/tour/(.*)": "<rootDir>/libs/tour/src/$1",
         "@has-george-read-backend/tour": "<rootDir>/libs/tour/src"
     },
-    "preset": "ts-jest"
+    "preset": "ts-jest",
+    "setupFilesAfterEnv": [
+        "@relmify/jest-fp-ts"
+    ]
 }
