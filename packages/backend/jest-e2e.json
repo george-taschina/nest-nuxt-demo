@@ -1,7 +1,7 @@
 {
-    "moduleFileExtensions": ["js", "json", "ts"],
+  "moduleFileExtensions": ["js", "json", "ts"],
     "rootDir": ".",
-    "testRegex": ".*\\.spec\\.ts$",
+    "testRegex": ".e2e-spec.ts$",
     "workerIdleMemoryLimit": "800MB",
     "collectCoverageFrom": ["**/*.(t/s)s", "**/*fixture*"],
     "coveragePathIgnorePatterns": [
@@ -22,6 +22,6 @@
     },
     "preset": "ts-jest",
     "setupFilesAfterEnv": [
-        "jest-extended/all","@relmify/jest-fp-ts"
+        "dotenv/config","jest-extended/all","@relmify/jest-fp-ts"
     ]
 }
