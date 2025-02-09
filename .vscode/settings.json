@@ -6,13 +6,16 @@
   "editor.quickSuggestions": {
     "other": true,
     "comments": false,
-    "strings": false
+    "strings": true
   },
   "eslint.workingDirectories": [
     {
       "mode": "auto"
     }
   ],
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
   "editor.acceptSuggestionOnCommitCharacter": true,
   "cSpell.language": "en,it",
   "cSpell.customDictionaries": {

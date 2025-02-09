@@ -22,7 +22,6 @@ export class TourService extends BaseService {
   > {
     return pipe(
       this.tourRepository.getAvailableTours(),
-      TE.tapIO((tours) => TE.of(this.logger.debug(`Found ${tours}`))),
       TE.map((tours) => tours.filter((tour) => !isTourFullyBooked(tour))),
       TE.map((tours) => {
         return tours.map((tour) => mapTourToGetAvailableResponse(tour));

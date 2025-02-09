@@ -8,5 +8,12 @@ export default defineNuxtConfig({
   devServer: {
     port: 8000,
   },
-  modules: ['@nuxtjs/tailwindcss', '@nuxt/fonts'],
+  runtimeConfig: {
+    public: {
+      apiBaseUrl: process.env.API_BASE_URL,
+      sentryDsn: process.env.SENTRY_DSN,
+      environment: process.env.ENVIRONMENT,
+    },
+  },
+  modules: ['@nuxtjs/tailwindcss', '@nuxt/fonts', '@nuxt/image'],
 });

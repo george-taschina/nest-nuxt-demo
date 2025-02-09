@@ -4,10 +4,19 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        custom: ['Roboto', 'sans-serif'],
+        sans: ['Satoshi'],
+        serif: ['Satoshi'],
+        mono: ['Satoshi'],
+        display: ['Satoshi'],
+        body: ['Satoshi'],
+      },
+      colors: {
+        primary: '#231212',
+        secondary: '#e3e2f7',
+        lightGray: '#f4f4f4',
+        white: '#ffffff',
       },
     },
   },
-  plugins: [],
-}
-
+  plugins: [import('@tailwindcss/line-clamp')],
+};
