@@ -1,9 +1,9 @@
 import { Migration } from '@mikro-orm/migrations';
 
-export class Migration20250208153750 extends Migration {
+export class Migration20250210203801 extends Migration {
   override async up(): Promise<void> {
     this.addSql(
-      `create table \`tour\` (\`id\` varchar(36) not null, \`slug\` varchar(255) not null, \`name\` varchar(255) not null, \`description\` text not null, \`starting_date\` date not null, \`ending_date\` date not null, \`price\` int not null, \`total_seats\` int not null, \`moods_nature\` smallint not null, \`moods_relax\` smallint not null, \`moods_history\` smallint not null, \`moods_culture\` smallint not null, \`moods_party\` smallint not null, primary key (\`id\`)) default character set utf8mb4 engine = InnoDB;`
+      `create table \`tour\` (\`id\` varchar(36) not null, \`slug\` varchar(255) not null, \`name\` varchar(255) not null, \`description\` text not null, \`starting_date\` date not null, \`ending_date\` date not null, \`price\` int not null, \`total_seats\` int not null, \`version\` int not null default 1, \`moods_nature\` smallint not null, \`moods_relax\` smallint not null, \`moods_history\` smallint not null, \`moods_culture\` smallint not null, \`moods_party\` smallint not null, \`updated_at\` datetime not null, primary key (\`id\`)) default character set utf8mb4 engine = InnoDB;`
     );
     this.addSql(
       `alter table \`tour\` add unique \`tour_slug_unique\`(\`slug\`);`

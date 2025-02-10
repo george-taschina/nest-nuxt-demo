@@ -29,7 +29,7 @@ const formatPrice = (price) => {
       <!-- Added flex container -->
       <div class="mb-4 flex-1">
         <!-- Added flex-1 to description section -->
-        <h2 class="text-2xl font-semibold text-gray-800 mb-2">
+        <h2 class="text-2xl font-semibold text-primary mb-2 line-clamp-1">
           {{ tour.name }}
         </h2>
         <p class="text-gray-600 line-clamp-3">{{ tour.description }}</p>
@@ -49,7 +49,7 @@ const formatPrice = (price) => {
           </span>
         </div>
 
-        <div class="text-lg font-bold text-indigo-600">
+        <div class="text-lg font-bold text-purple-400">
           {{ formatPrice(tour.price) }}
         </div>
 
@@ -61,7 +61,7 @@ const formatPrice = (price) => {
             <div
               v-for="(value, mood) in tour.moods"
               :key="mood"
-              class="px-2 py-1 bg-gray-100 rounded-full text-xs text-gray-600"
+              class="px-2 py-1 bg-secondary rounded-full text-xs text-gray-600"
             >
               {{ mood }}: {{ value }}%
             </div>
@@ -72,7 +72,7 @@ const formatPrice = (price) => {
 
     <div class="bg-gray-50 px-6 py-4">
       <button
-        class="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors duration-200"
+        class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 cursor-pointer transition-colors duration-200"
       >
         Book Now
       </button>

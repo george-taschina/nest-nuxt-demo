@@ -1,5 +1,5 @@
 import { TourGetAvailableResponse } from '@has-george-read/shared/domain/tour/tour-get-available';
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseInterceptors } from '@nestjs/common';
 import { TourService } from '../services/tour.service';
 import {
   TEmapLeftToHttpError,
@@ -7,14 +7,16 @@ import {
 } from '@has-george-read-backend/core/controllers/controller-utils';
 
 import { pipe } from 'fp-ts/function';
-import { Tour } from '../models/tour.entity';
 import {
   ApiBadRequestResponse,
   ApiOkResponse,
   ApiOperation,
 } from '@nestjs/swagger';
+import { CacheInterceptor } from '@nestjs/cache-manager';
+import { Type } from 'io-ts';
 
 @Controller('tours')
+@UseInterceptors(CacheInterceptor)
 export class TourController {
   constructor(private readonly tourService: TourService) {}
 
@@ -25,7 +27,7 @@ export class TourController {
   })
   @ApiOkResponse({
     description: 'Successfully retrieved list of tours',
-    type: [Tour],
+    type: Type<TourGetAvailableResponse[]>,
   })
   @ApiBadRequestResponse({
     description: 'Database failed connection',

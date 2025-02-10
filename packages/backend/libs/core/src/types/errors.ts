@@ -106,6 +106,22 @@ export class DatabaseError extends ApplicationExtendedException {
   }
 }
 
+export class LockError extends ApplicationExtendedException {
+  private _lockError = 'lockError' as const;
+
+  public get tag(): 'lockError' {
+    return this._lockError;
+  }
+}
+
+export class ConflictError extends ApplicationExtendedException {
+  private _conflictError = 'conflictError' as const;
+
+  public get tag(): 'conflictError' {
+    return this._conflictError;
+  }
+}
+
 export class CacheError extends ApplicationExtendedException {
   private _cacheError = 'cacheError' as const;
 

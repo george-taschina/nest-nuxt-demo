@@ -1,11 +1,14 @@
 import { BadRequestException, HttpException } from '@nestjs/common';
 import {
+  ApplicationExtendedException,
+  ConflictError,
   DatabaseError,
   ForbiddenError,
   IntegrationError,
   InternalError,
   MappingError,
   NotFoundError,
+  LockError,
   UserError,
   ValidationError,
 } from '../types/errors';
@@ -28,7 +31,9 @@ const mapErrorToHttpError = (
     | IntegrationError
     | HttpException
     | UserError
-): HttpException => {
+    | ConflictError
+    | LockError
+): HttpException | ApplicationExtendedException => {
   if (error instanceof ValidationError) {
     return new BadRequestException(
       {
@@ -53,30 +58,6 @@ const mapErrorToHttpError = (
     );
   }
 
-  if (error instanceof MappingError) {
-    return new BadRequestException(
-      {
-        statusCode: 400,
-        messages: [error.message],
-        transactionId: getCurrentTransaction(),
-        error: 'Mapping Error',
-      },
-      { cause: error }
-    );
-  }
-
-  if (error instanceof DatabaseError) {
-    return new BadRequestException(
-      {
-        statusCode: 400,
-        messages: [error.message],
-        transactionId: getCurrentTransaction(),
-        error: 'Database Error',
-      },
-      { cause: error }
-    );
-  }
-
   if (error instanceof ForbiddenError) {
     return new BadRequestException(
       {
@@ -89,37 +70,25 @@ const mapErrorToHttpError = (
     );
   }
 
-  if (error instanceof InternalError) {
+  if (error instanceof ConflictError) {
     return new BadRequestException(
       {
-        statusCode: 500,
+        statusCode: 409,
         messages: [error.message],
         transactionId: getCurrentTransaction(),
-        error: 'Internal Error',
+        error: 'Conflict Error',
       },
       { cause: error }
     );
   }
 
-  if (error instanceof IntegrationError) {
+  if (error instanceof LockError) {
     return new BadRequestException(
       {
-        statusCode: 400,
+        statusCode: 412,
         messages: [error.message],
         transactionId: getCurrentTransaction(),
-        error: 'Integration Error',
-      },
-      { cause: error }
-    );
-  }
-
-  if (error instanceof UserError) {
-    return new BadRequestException(
-      {
-        statusCode: 400,
-        messages: [error.message],
-        transactionId: getCurrentTransaction(),
-        error: 'User Error',
+        error: 'Lock Error',
       },
       { cause: error }
     );

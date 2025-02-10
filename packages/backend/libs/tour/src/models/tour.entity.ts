@@ -78,6 +78,9 @@ export class Tour {
   @ApiProperty()
   totalSeats!: number;
 
+  @Property({ version: true })
+  version!: number;
+
   @OneToMany(() => Reservation, (reservation) => reservation.tour)
   reservations = new Collection<Reservation>(this);
 
@@ -86,6 +89,9 @@ export class Tour {
 
   @Embedded(() => TourMoods)
   moods!: TourMoods;
+
+  @Property()
+  updatedAt: Date = new Date();
 
   constructor(data?: Partial<Tour>) {
     if (data) {

@@ -26,7 +26,7 @@ export const createLoggerModule = (name: string) => {
   return WinstonModule.createLogger({
     transports: [
       new winston.transports.Console({
-        level: getLogLevel(),
+        level: 'debug',
         format: winston.format.combine(...combine),
       }),
     ],
