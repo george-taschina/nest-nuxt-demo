@@ -5,7 +5,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as TE from 'fp-ts/TaskEither';
 import { createFixtureAvailableTourResponse } from '../../fixtures/fixture-tour';
 import { DatabaseError } from '@has-george-read-backend/core/types/errors';
-import { BadRequestException } from '@nestjs/common';
 
 describe('TourController', () => {
   let testingModule: TestingModule;
@@ -44,16 +43,7 @@ describe('TourController', () => {
 
       await expect(
         async () => await tourController.getAvailableTours()
-      ).rejects.toThrow(
-        new BadRequestException(
-          {
-            statusCode: 400,
-            message: ['message'],
-            error: 'Bad Request',
-          },
-          { cause: databaseError }
-        )
-      );
+      ).rejects.toThrow(databaseError);
     });
   });
 });

@@ -90,10 +90,4 @@ export class ReservationService extends BaseService {
       TE.tap(() => this.tourService.lockAndUpdateById(tourId, tourVersion))
     );
   }
-
-  public getActiveReservationsByTourId(
-    tourId: string
-  ): TE.TaskEither<DatabaseError, Reservation[]> {
-    return this.reservationRepository.getReservationsByTourId(tourId);
-  }
 }

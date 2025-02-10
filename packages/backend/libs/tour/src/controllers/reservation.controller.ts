@@ -8,8 +8,11 @@ import { pipe } from 'fp-ts/function';
 import {
   ApiBadRequestResponse,
   ApiBody,
+  ApiConflictResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiPreconditionFailedResponse,
 } from '@nestjs/swagger';
 import { ReservationService } from '../services/reservations.service';
 import { UserService } from '../services/user.service';
@@ -40,8 +43,13 @@ export class ReservationController {
     description: 'Successfully reserved',
     type: Reservation,
   })
-  @ApiBadRequestResponse({
-    description: 'Database failed connection',
+  @ApiBadRequestResponse()
+  @ApiNotFoundResponse()
+  @ApiPreconditionFailedResponse({
+    description: 'Race Condition Error',
+  })
+  @ApiConflictResponse({
+    description: 'All seats have already been reserved or booked',
   })
   async save(
     @Body(new ValidationPipe())

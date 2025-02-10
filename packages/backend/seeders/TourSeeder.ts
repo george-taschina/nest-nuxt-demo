@@ -11,8 +11,8 @@ export class TourSeeder extends Seeder {
         name: 'Jordan 360°',
         description:
           'Jordan 360°: the perfect tour to discover the suggestive Wadi Rum desert, the ancient beauty of Petra, and much more.\n\nVisiting Jordan is one of the most fascinating things that everyone has to do once in their life.You are probably wondering "Why?". Well, that\'s easy: because this country keeps several passions! During our tour in Jordan, you can range from well-preserved archaeological masterpieces to trekkings, from natural wonders excursions to ancient historical sites, from camels trek in the desert to some time to relax.\nDo not forget to float in the Dead Sea and enjoy mineral-rich mud baths, it\'s one of the most peculiar attractions. It will be a tour like no other: this beautiful country leaves a memorable impression on everyone.',
-        startingDate: new Date('2021-11-01'),
-        endingDate: new Date('2021-11-09'),
+        startingDate: new Date('2025-11-01'),
+        endingDate: new Date('2025-11-09'),
         price: 199900,
         moods: {
           nature: 80,
@@ -22,6 +22,8 @@ export class TourSeeder extends Seeder {
           party: 10,
         },
         totalSeats: 5,
+        version: 1,
+        updatedAt: new Date(),
       },
       {
         id: '4f4bd032-e7d4-402a-bdf6-aaf6be240d53',
@@ -29,8 +31,8 @@ export class TourSeeder extends Seeder {
         name: 'Iceland: hunting for the Northern Lights',
         description:
           "Why visit Iceland in winter? Because it is between October and March that this land offers the spectacle of the Northern Lights, one of the most incredible and magical natural phenomena in the world, visible only near the earth's two magnetic poles. Come with us on WeRoad to explore this land of ice and fire, full of contrasts and natural variety, where the energy of waterfalls and geysers meets the peace of the fjords... And when the ribbons of light of the aurora borealis twinkle in the sky before our enchanted eyes, we will know that we have found what we were looking for.",
-        startingDate: new Date('2021-11-01'),
-        endingDate: new Date('2021-11-08'),
+        startingDate: new Date('2025-11-01'),
+        endingDate: new Date('2025-11-08'),
         price: 199900,
         moods: {
           nature: 100,
@@ -40,6 +42,8 @@ export class TourSeeder extends Seeder {
           party: 10,
         },
         totalSeats: 5,
+        version: 1,
+        updatedAt: new Date(),
       },
       {
         id: 'cbf304ae-a335-43fa-9e56-811612dcb601',
@@ -58,6 +62,8 @@ export class TourSeeder extends Seeder {
           party: 70,
         },
         totalSeats: 5,
+        version: 1,
+        updatedAt: new Date(),
       },
     ];
 

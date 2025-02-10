@@ -15,7 +15,9 @@ import { ENTITIES_LIST } from './models/entities-list';
   imports: [
     CoreModule,
     MikroOrmModule.forFeature(ENTITIES_LIST),
-    CacheModule.register(),
+    CacheModule.register({
+      ttl: 5000,
+    }),
   ],
   controllers: [TourController, ReservationController],
   providers: [

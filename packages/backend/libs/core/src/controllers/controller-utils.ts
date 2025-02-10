@@ -1,4 +1,11 @@
-import { BadRequestException, HttpException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  ForbiddenException,
+  HttpException,
+  NotFoundException,
+  PreconditionFailedException,
+} from '@nestjs/common';
 import {
   ApplicationExtendedException,
   ConflictError,
@@ -47,7 +54,7 @@ const mapErrorToHttpError = (
   }
 
   if (error instanceof NotFoundError) {
-    return new BadRequestException(
+    return new NotFoundException(
       {
         statusCode: 404,
         messages: [error.message],
@@ -59,7 +66,7 @@ const mapErrorToHttpError = (
   }
 
   if (error instanceof ForbiddenError) {
-    return new BadRequestException(
+    return new ForbiddenException(
       {
         statusCode: 403,
         messages: [error.message],
@@ -71,7 +78,7 @@ const mapErrorToHttpError = (
   }
 
   if (error instanceof ConflictError) {
-    return new BadRequestException(
+    return new ConflictException(
       {
         statusCode: 409,
         messages: [error.message],
@@ -83,7 +90,7 @@ const mapErrorToHttpError = (
   }
 
   if (error instanceof LockError) {
-    return new BadRequestException(
+    return new PreconditionFailedException(
       {
         statusCode: 412,
         messages: [error.message],

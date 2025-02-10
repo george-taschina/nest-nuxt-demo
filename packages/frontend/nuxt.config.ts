@@ -15,5 +15,5 @@ export default defineNuxtConfig({
       environment: process.env.ENVIRONMENT,
     },
   },
-  modules: ['@nuxtjs/tailwindcss', '@nuxt/fonts', '@nuxt/image'],
+  modules: ['@nuxt/fonts', '@nuxt/image', '@nuxtjs/tailwindcss'],
 });
