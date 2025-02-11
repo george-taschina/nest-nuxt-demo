@@ -5,7 +5,7 @@
         <!-- Left side logo/name -->
         <div class="flex-shrink-0 flex items-center">
           <NuxtLink to="/" class="text-xl font-bold text-gray-800">
-            Your Logo
+            <NuxtImg src="/logo.svg" width="100" />
           </NuxtLink>
         </div>
 
@@ -78,14 +78,10 @@
 </template>
 
 <script setup>
+import NuxtImg from '#image/components/NuxtImg.vue';
 import { ref } from 'vue';
 
 const isOpen = ref(false);
 
-const navigation = [
-  { name: 'Home', path: '/' },
-  { name: 'About', path: '/about' },
-  { name: 'Services', path: '/services' },
-  { name: 'Contact', path: '/contact' },
-];
+const navigation = [{ name: 'Home', path: '/' }];
 </script>

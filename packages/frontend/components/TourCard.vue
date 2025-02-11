@@ -22,15 +22,24 @@ const formatPrice = (price: number) => {
 };
 </script>
 
-<!-- In TourCard.vue -->
 <template>
   <div
     class="h-full flex flex-col bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300"
   >
+    <!-- Top Image Section -->
+    <div class="w-full h-48 overflow-hidden rounded-t-xl">
+      <NuxtImg
+        alt="tour.name"
+        format="webp"
+        loading="lazy"
+        src="https://picsum.photos/400/200"
+        class="w-full h-full object-cover"
+        placeholder="data:image/webp;base64,UklGRq4CAABXRUJQVlA4WAoAAAAgAAAAjwEAxwAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggwAAAALAUAJ0BKpAByAA//f7/f7+7NrIgKAPwP4lpbuF3YRtACewD32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtk5D32ych77ZOQ99snIe+2TkPfbJyHvtWAAD+/2tqeIUAAAAAAAAAAAAAAA=="
+      />
+    </div>
+
     <div class="p-6 flex-1 flex flex-col">
-      <!-- Added flex container -->
       <div class="mb-4 flex-1">
-        <!-- Added flex-1 to description section -->
         <h2 class="text-2xl font-semibold text-primary mb-2 line-clamp-1">
           {{ tour.name }}
         </h2>
@@ -73,11 +82,9 @@ const formatPrice = (price: number) => {
     </div>
 
     <div class="bg-gray-50 px-6 py-4">
-      <button
-        class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 cursor-pointer transition-colors duration-200"
-      >
-        Book Now
-      </button>
+      <NuxtLink :to="{ name: 'booking-id-start', params: { id: tour.id } }">
+        <GeorgeButton class="w-full">Book now</GeorgeButton>
+      </NuxtLink>
     </div>
   </div>
 </template>

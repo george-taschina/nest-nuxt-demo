@@ -60,8 +60,6 @@ export class GeorgeExceptionFilter extends BaseExceptionFilter {
     }
 
     if (exception instanceof HttpException && exception.getStatus() < 500) {
-      console.debug('SONO ENTRATO QUA');
-
       super.catch(exception, host);
       return;
     }

@@ -30,7 +30,7 @@ const { data, status, error } =
         <div
           class="hidden md:block absolute -right-10 bottom-0 w-[200px] sm:w-[350px] md:w-[400px] lg:w-[450px] z-2"
         >
-          <NuxtImg src="/palm.png" />
+          <NuxtImg format="webp" loading="lazy" src="/palm.png" />
         </div>
       </div>
 
