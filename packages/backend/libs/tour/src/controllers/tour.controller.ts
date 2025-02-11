@@ -1,5 +1,5 @@
 import { TourGetAvailableResponse } from '@has-george-read/shared/domain/tour/tour-get-available';
-import { Controller, Get, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Param, UseInterceptors } from '@nestjs/common';
 import { TourService } from '../services/tour.service';
 import {
   TEmapLeftToHttpError,
@@ -35,6 +35,26 @@ export class TourController {
   async getAvailableTours(): Promise<TourGetAvailableResponse[]> {
     return pipe(
       this.tourService.getAvailableTours(),
+      TEmapLeftToHttpError,
+      TEThrowIfError
+    )();
+  }
+
+  @Get('/:id')
+  @ApiOperation({
+    summary: 'Get specific tour',
+    description: 'Retrieves a tour',
+  })
+  @ApiOkResponse({
+    description: 'Successfully retrieved tour',
+    type: Type<TourGetAvailableResponse>,
+  })
+  @ApiBadRequestResponse({
+    description: 'Database failed connection',
+  })
+  async get(@Param('id') id: string): Promise<TourGetAvailableResponse> {
+    return pipe(
+      this.tourService.getDetails(id),
       TEmapLeftToHttpError,
       TEThrowIfError
     )();

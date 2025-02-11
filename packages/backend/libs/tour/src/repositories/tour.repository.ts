@@ -20,9 +20,14 @@ export class TourRepository extends EntityRepository<Tour> {
     return pipe(
       TE.tryCatch(
         () => {
-          return this.findOne({
-            id: tourId,
-          });
+          return this.findOne(
+            {
+              id: tourId,
+            },
+            {
+              populate: ['bookings', 'reservations'],
+            }
+          );
         },
         (cause) => {
           return new DatabaseError('Error getting tours', { cause });
