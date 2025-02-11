@@ -1,12 +1,14 @@
-<script setup>
+<script setup lang="ts">
+import type { TourGetAvailableResponse } from '@has-george-read/shared/domain/tour/tour-get-available';
+
 const props = defineProps({
   tour: {
-    type: Object,
+    type: Object as PropType<TourGetAvailableResponse>,
     required: true,
   },
 });
 
-const formatDate = (dateString) => {
+const formatDate = (dateString: string) => {
   const date = new Date(dateString);
   return date.toLocaleDateString('en-US', {
     month: 'short',
@@ -15,7 +17,7 @@ const formatDate = (dateString) => {
   });
 };
 
-const formatPrice = (price) => {
+const formatPrice = (price: number) => {
   return `$${(price / 100).toLocaleString('en-US')}`;
 };
 </script>
@@ -38,8 +40,8 @@ const formatPrice = (price) => {
       <div class="space-y-3">
         <div class="flex justify-between items-center text-sm">
           <span class="text-gray-500">
-            {{ formatDate(tour.startingDate) }} -
-            {{ formatDate(tour.endingDate) }}
+            {{ formatDate(tour.startingDate.toString()) }} -
+            {{ formatDate(tour.endingDate.toString()) }}
           </span>
           <span
             v-if="tour.availableSeats > 0"

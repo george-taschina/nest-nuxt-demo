@@ -1,5 +1,8 @@
-<script setup>
-const { data, status, error } = await useNestFetch('tours');
+<script setup lang="ts">
+import type { TourGetAvailableResponse } from '@has-george-read/shared/domain/tour/tour-get-available';
+
+const { data, status, error } =
+  await useNestFetch<TourGetAvailableResponse[]>('tours');
 </script>
 
 <template>
