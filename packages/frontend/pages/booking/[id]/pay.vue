@@ -2,6 +2,9 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import moment from 'moment';
 import { useReservationStore } from '~/stores/useReservationStore';
+import { bookingResponseCodec } from '@has-george-read/shared/domain/tour/booking';
+import * as E from 'fp-ts/Either';
+import { pipe } from 'fp-ts/function';
 
 const { $pinia } = useNuxtApp();
 const reservationStore = useReservationStore($pinia);
@@ -13,6 +16,8 @@ if (tourData === null || reservationData === null) {
     statusMessage: 'Tour Not found',
   });
 }
+const { booking, bookingError, bookTour } = useBooking(reservationData.id);
+
 const timeLeft = ref('');
 
 const updateTimer = () => {
@@ -37,6 +42,31 @@ onMounted(() => {
 onUnmounted(() => {
   clearInterval(timerInterval);
 });
+
+const handlePayment = async () => {
+  await bookTour();
+
+  const validatedReservation = pipe(
+    booking.value,
+    bookingResponseCodec.decode,
+    E.match(
+      () => {
+        throw createError({
+          statusCode: 400,
+          statusMessage: 'Something went wrong',
+        });
+      },
+      (result) => result
+    )
+  );
+
+  reservationStore.$patch({
+    reservation: validatedReservation,
+    tour: tourData,
+  });
+
+  navigateTo(`/success`);
+};
 </script>
 
 <template>
@@ -65,7 +95,7 @@ onUnmounted(() => {
           </p>
         </div>
 
-        <GeorgeButton class="w-full py-4 text-lg" type="submit">
+        <GeorgeButton class="w-full py-4 text-lg" @click="handlePayment">
           Paga
         </GeorgeButton>
       </div>
