@@ -4,7 +4,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   typescript: {
     typeCheck: true,
-    includeWorkspace: true,
+    tsConfig: {
+      exclude: ['../backend'],
+    },
   },
   devServer: {
     port: 8000,
@@ -16,5 +18,11 @@ export default defineNuxtConfig({
       environment: process.env.ENVIRONMENT,
     },
   },
-  modules: ['@nuxt/fonts', '@nuxt/image', '@nuxtjs/tailwindcss'],
+  modules: [
+    '@pinia/nuxt',
+    'pinia-plugin-persistedstate/nuxt',
+    '@nuxt/fonts',
+    '@nuxt/image',
+    '@nuxtjs/tailwindcss',
+  ],
 });

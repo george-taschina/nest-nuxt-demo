@@ -84,7 +84,7 @@ describe('ReservationController', () => {
         new NotFoundException(
           {
             statusCode: 404,
-            messages: ['Not Found Exception'],
+            message: ['Not Found Exception'],
             error: 'Not Found',
           },
           { cause: notFoundError }
@@ -107,7 +107,7 @@ describe('ReservationController', () => {
         new PreconditionFailedException(
           {
             statusCode: 412,
-            messages: ['message'],
+            message: ['message'],
             error: 'Lock Error',
           },
           { cause: lockError }
@@ -130,7 +130,7 @@ describe('ReservationController', () => {
         new ConflictException(
           {
             statusCode: 409,
-            messages: [''],
+            message: [''],
             error: 'Conflict Error',
           },
           { cause: conflictError }

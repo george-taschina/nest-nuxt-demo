@@ -1,5 +1,5 @@
 import { TourGetAvailableResponse } from '@has-george-read/shared/domain/tour/tour-get-available';
-import { Controller, Get, Param, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { TourService } from '../services/tour.service';
 import {
   TEmapLeftToHttpError,
@@ -12,11 +12,9 @@ import {
   ApiOkResponse,
   ApiOperation,
 } from '@nestjs/swagger';
-import { CacheInterceptor } from '@nestjs/cache-manager';
 import { Type } from 'io-ts';
 
 @Controller('tours')
-@UseInterceptors(CacheInterceptor)
 export class TourController {
   constructor(private readonly tourService: TourService) {}
 

@@ -2,7 +2,7 @@
 import type { TourGetAvailableResponse } from '@has-george-read/shared/domain/tour/tour-get-available';
 
 const { data, status, error } =
-  await useNestFetch<TourGetAvailableResponse[]>('tours');
+  await useApi<TourGetAvailableResponse[]>('tours');
 </script>
 
 <template>

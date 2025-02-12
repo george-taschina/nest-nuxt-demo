@@ -45,7 +45,7 @@ const mapErrorToHttpError = (
     return new BadRequestException(
       {
         statusCode: 400,
-        messages: [error.message],
+        message: [error.message],
         transactionId: getCurrentTransaction(),
         error: 'Bad Request',
       },
@@ -57,7 +57,7 @@ const mapErrorToHttpError = (
     return new NotFoundException(
       {
         statusCode: 404,
-        messages: [error.message],
+        message: [error.message],
         transactionId: getCurrentTransaction(),
         error: 'Not Found',
       },
@@ -69,7 +69,7 @@ const mapErrorToHttpError = (
     return new ForbiddenException(
       {
         statusCode: 403,
-        messages: [error.message],
+        message: [error.message],
         transactionId: getCurrentTransaction(),
         error: 'Forbidden',
       },
@@ -81,7 +81,7 @@ const mapErrorToHttpError = (
     return new ConflictException(
       {
         statusCode: 409,
-        messages: [error.message],
+        message: [error.message],
         transactionId: getCurrentTransaction(),
         error: 'Conflict Error',
       },
@@ -93,7 +93,7 @@ const mapErrorToHttpError = (
     return new PreconditionFailedException(
       {
         statusCode: 412,
-        messages: [error.message],
+        message: [error.message],
         transactionId: getCurrentTransaction(),
         error: 'Lock Error',
       },

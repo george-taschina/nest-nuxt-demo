@@ -1,18 +1,18 @@
 import * as t from 'io-ts';
 import * as types from 'io-ts-types';
 
-export const reservationCodec = t.type(
+export const reservationResponseCodec = t.type(
   {
     id: t.string,
-    tour: t.string,
-    user: t.string,
-    seatsReserved: t.string,
+    seatsReserved: t.number,
+    userId: t.string,
+    tourId: t.string,
     expiresAt: types.DateFromISOString,
     createdAt: types.DateFromISOString,
   },
-  'reservation'
+  'reservationResponse'
 );
 
-export const reservationListCodec = t.array(reservationCodec);
+export const reservationListCodec = t.array(reservationResponseCodec);
 
-export type Reservation = t.TypeOf<typeof reservationCodec>;
+export type ReservationResponse = t.TypeOf<typeof reservationResponseCodec>;

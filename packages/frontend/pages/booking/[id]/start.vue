@@ -1,19 +1,16 @@
 <script setup lang="ts">
-import type { TourGetAvailableResponse } from '@has-george-read/shared/domain/tour/tour-get-available';
+import { reservationResponseCodec } from '@has-george-read/shared/domain/tour/reservation';
+import { pipe } from 'fp-ts/lib/function';
+import * as E from 'fp-ts/Either';
+import { useReservationStore } from '~/stores/useReservationStore';
+const { $pinia } = useNuxtApp();
 
 const route = useRoute();
-const tourId = route.params.id;
+const reservationStore = useReservationStore($pinia);
+const tourId = route.params.id as string;
 
-const { data, status, error } = await useNestFetch<TourGetAvailableResponse>(
-  `tours/${tourId}`
-);
-
-// Check for errors and null data
-if (status.value === 'error' || data.value === null) {
-  throw createError({ statusCode: 404, statusMessage: 'Tour not found' });
-}
-
-const tourData = data.value;
+const { tourData } = await useTour(tourId);
+const { reservation, reservationError, reserveTour } = useReservation(tourId);
 
 const peopleCount = ref(1);
 const email = ref('');
@@ -26,26 +23,44 @@ const decrementPeople = () => {
   if (peopleCount.value > 1) peopleCount.value--;
 };
 
-const handleSubmit = () => {
-  console.log({
-    tourId,
-    peopleCount: peopleCount.value,
-    email: email.value,
+const handleSubmit = async () => {
+  await reserveTour(email.value, peopleCount.value);
+
+  const validatedReservation = pipe(
+    reservation.value,
+    reservationResponseCodec.decode,
+    E.match(
+      () => {
+        throw createError({
+          statusCode: 400,
+          statusMessage: 'Something went wrong',
+        });
+      },
+      (result) => result
+    )
+  );
+
+  reservationStore.$patch({
+    reservation: validatedReservation,
+    tour: tourData,
   });
+
+  navigateTo(`/booking/${tourId}/pay`);
 };
 </script>
+
 <template>
-  <div class="min-h-screen container mx-auto p-6 max-w-6xl" v-if="data">
+  <div class="min-h-screen container mx-auto p-6 max-w-6xl" v-if="tourData">
     <div class="flex flex-col md:flex-row gap-8">
       <!-- Left Column (Form) -->
       <div class="flex-1 space-y-8">
         <h1 class="text-3xl font-bold">
           Prenotazione
           <span
-            v-if="data.availableSeats > 0"
+            v-if="tourData.availableSeats > 0"
             class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-medium"
           >
-            {{ data.availableSeats }} seats left
+            {{ tourData.availableSeats }} seats left
           </span>
         </h1>
 
@@ -90,6 +105,16 @@ const handleSubmit = () => {
           <GeorgeButton class="w-full py-4 text-lg" type="submit">
             Prenota
           </GeorgeButton>
+          <ul class="text-red-400" v-if="reservationError">
+            <li
+              v-for="msg in Array.isArray(reservationError?.message)
+                ? reservationError.message
+                : [reservationError?.message]"
+              :key="msg"
+            >
+              {{ msg }}
+            </li>
+          </ul>
         </form>
       </div>
 

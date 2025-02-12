@@ -1,4 +1,5 @@
 import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
+import { ReservationResponse } from '@has-george-read/shared/domain/tour/reservation';
 import {
   TEmapLeftToHttpError,
   TEThrowIfError,
@@ -54,7 +55,7 @@ export class ReservationController {
   async save(
     @Body(new ValidationPipe())
     body: CreateReservationDto
-  ): Promise<Reservation> {
+  ): Promise<ReservationResponse> {
     return pipe(
       TE.Do,
       TE.bind('user', () =>
@@ -68,6 +69,14 @@ export class ReservationController {
         );
         return result;
       }),
+      TE.map((reservation) => ({
+        id: reservation.id,
+        userId: reservation.user.id,
+        tourId: reservation.tour.id,
+        seatsReserved: reservation.seatsReserved,
+        expiresAt: reservation.expiresAt,
+        createdAt: reservation.createdAt,
+      })),
       TEmapLeftToHttpError,
       TEThrowIfError
     )();
