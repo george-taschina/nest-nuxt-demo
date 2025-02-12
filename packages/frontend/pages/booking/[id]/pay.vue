@@ -98,6 +98,16 @@ const handlePayment = async () => {
         <GeorgeButton class="w-full py-4 text-lg" @click="handlePayment">
           Paga
         </GeorgeButton>
+        <ul class="text-red-400" v-if="bookingError">
+          <li
+            v-for="msg in Array.isArray(bookingError?.message)
+              ? bookingError.message
+              : [bookingError?.message]"
+            :key="msg"
+          >
+            {{ msg }}
+          </li>
+        </ul>
       </div>
 
       <!-- Right Column (Tour Details) -->
