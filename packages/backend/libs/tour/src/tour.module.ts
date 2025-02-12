@@ -10,16 +10,17 @@ import { ReservationService } from './services/reservations.service';
 import { BookingService } from './services/booking.service';
 import { UserService } from './services/user.service';
 import { ENTITIES_LIST } from './models/entities-list';
+import { BookingController } from './controllers/booking.controller';
 
 @Module({
   imports: [
     CoreModule,
     MikroOrmModule.forFeature(ENTITIES_LIST),
     CacheModule.register({
-      ttl: 5000,
+      ttl: 500,
     }),
   ],
-  controllers: [TourController, ReservationController],
+  controllers: [TourController, ReservationController, BookingController],
   providers: [
     TourService,
     ReservationService,

@@ -1,7 +1,7 @@
 import { Reservation } from '../models/reservation.entity';
 import { BaseService } from '@has-george-read-backend/core/services/base.service';
 import { ReservationRepository } from '../repositories/reservation.repository';
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import * as TE from 'fp-ts/TaskEither';
 import {
   ConflictError,
@@ -12,6 +12,7 @@ import {
 import { pipe } from 'fp-ts/function';
 import { BookingService } from './booking.service';
 import { TourService } from './tour.service';
+import * as O from 'fp-ts/Option';
 
 const SECONDS_TO_RESERVE_SEATS = 900;
 
@@ -19,10 +20,36 @@ const SECONDS_TO_RESERVE_SEATS = 900;
 export class ReservationService extends BaseService {
   constructor(
     private readonly reservationRepository: ReservationRepository,
+    @Inject(forwardRef(() => BookingService))
     private readonly bookingService: BookingService,
     private readonly tourService: TourService
   ) {
     super();
+  }
+
+  public getByIdOrFail(
+    reservationId: string
+  ): TE.TaskEither<DatabaseError | NotFoundError, Reservation> {
+    return pipe(
+      this.reservationRepository.getById(reservationId),
+      TE.filterOrElseW(
+        (result) => O.isSome(result),
+        () => new NotFoundError('Could not find tour')
+      ),
+      TE.map((result) => result.value)
+    );
+  }
+
+  public cancelReservation(
+    resevationId: string
+  ): TE.TaskEither<DatabaseError | NotFoundError, number> {
+    return pipe(
+      TE.Do,
+      TE.bindW('reservation', () => this.getByIdOrFail(resevationId)),
+      TE.flatMap(() =>
+        this.reservationRepository.cancelReservation(resevationId)
+      )
+    );
   }
 
   public reserveSeats(

@@ -1,14 +1,44 @@
 import { BaseService } from '@has-george-read-backend/core/services/base.service';
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import * as TE from 'fp-ts/TaskEither';
-import { DatabaseError } from '@has-george-read-backend/core/types/errors';
+import {
+  DatabaseError,
+  NotFoundError,
+} from '@has-george-read-backend/core/types/errors';
 import { BookingRepository } from '../repositories/booking.repository';
 import { Booking } from '../models/booking.entity';
+import { ReservationService } from './reservations.service';
+import { pipe } from 'fp-ts/lib/function';
 
 @Injectable()
 export class BookingService extends BaseService {
-  constructor(private readonly bookingRepository: BookingRepository) {
+  constructor(
+    private readonly bookingRepository: BookingRepository,
+    @Inject(forwardRef(() => ReservationService))
+    private readonly reservationService: ReservationService
+  ) {
     super();
+  }
+
+  public createBooking(
+    reservationId: string
+  ): TE.TaskEither<NotFoundError | DatabaseError, Booking> {
+    return pipe(
+      TE.Do,
+      TE.bindW('reservation', () =>
+        this.reservationService.getByIdOrFail(reservationId)
+      ),
+      TE.bindW('booking', ({ reservation }) =>
+        this.bookingRepository.createBooking({
+          seatsBooked: reservation.seatsReserved,
+          userId: reservation.user.id,
+          totalPrice: reservation.seatsReserved * reservation.tour.price,
+          tourId: reservation.tour.id,
+        })
+      ),
+      TE.tapIO(() => this.reservationService.cancelReservation(reservationId)),
+      TE.map(({ booking }) => booking)
+    );
   }
 
   public getPendingOrCompletedBookingsByTourId(

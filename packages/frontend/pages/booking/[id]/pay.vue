@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import moment from 'moment';
 import { useReservationStore } from '~/stores/useReservationStore';
 
 const { $pinia } = useNuxtApp();
 const reservationStore = useReservationStore($pinia);
 const tourData = reservationStore.tour;
-if (tourData === null) {
+const reservationData = reservationStore.reservation;
+if (tourData === null || reservationData === null) {
   throw createError({
     statusCode: 404,
     statusMessage: 'Tour Not found',
@@ -16,7 +17,7 @@ const timeLeft = ref('');
 
 const updateTimer = () => {
   const now = moment();
-  const expiration = moment(reservationStore.reservation?.expiresAt);
+  const expiration = moment(reservationData.expiresAt);
   const diffSeconds = expiration.diff(now, 'seconds');
 
   if (diffSeconds <= 0) {
@@ -51,15 +52,18 @@ onUnmounted(() => {
     <div class="flex flex-col md:flex-row gap-8 mt-6">
       <!-- Left Column (Form) -->
       <div class="flex-1 space-y-8">
-        <h1 class="text-3xl font-bold">
-          Checkout
-          <span
-            v-if="tourData.availableSeats > 0"
-            class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-medium"
-          >
-            {{ tourData.availableSeats }} seats left
-          </span>
-        </h1>
+        <h1 class="text-3xl font-bold">Checkout</h1>
+
+        <div>
+          <p>
+            <span class="font-bold">Posti prenotati:</span>
+            {{ reservationData.seatsReserved }}
+          </p>
+          <p>
+            <span class="font-bold">Totale:</span>
+            {{ formatPrice(reservationData.seatsReserved * tourData.price) }}
+          </p>
+        </div>
 
         <GeorgeButton class="w-full py-4 text-lg" type="submit">
           Paga

@@ -5,8 +5,47 @@ import { DatabaseError } from '@has-george-read-backend/core/types/errors';
 import { User } from '../models/user.entity';
 import { Tour } from '../models/tour.entity';
 import moment from 'moment';
+import { pipe } from 'fp-ts/function';
+import * as O from 'fp-ts/Option';
 
 export class ReservationRepository extends EntityRepository<Reservation> {
+  public cancelReservation(
+    reservationId: string
+  ): TE.TaskEither<DatabaseError, number> {
+    return TE.tryCatch(
+      () => {
+        return this.nativeDelete({
+          id: reservationId,
+        });
+      },
+      (cause) => {
+        return new DatabaseError('Error deleting reservation', { cause });
+      }
+    );
+  }
+  public getById(
+    reservationId: string
+  ): TE.TaskEither<DatabaseError, O.Option<Reservation>> {
+    return pipe(
+      TE.tryCatch(
+        () => {
+          return this.findOne(
+            {
+              id: reservationId,
+            },
+            {
+              populate: ['tour'],
+            }
+          );
+        },
+        (cause) => {
+          return new DatabaseError('Error getting reservation', { cause });
+        }
+      ),
+      TE.map((result) => O.fromNullable(result))
+    );
+  }
+
   public reserveSeats(
     tourId: string,
     userId: string,
