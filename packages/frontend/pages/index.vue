@@ -43,6 +43,7 @@ const { data, status, error } =
         </div>
 
         <div
+          :v-if="data && data.length > 0"
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch"
         >
           <TourCard
@@ -52,6 +53,8 @@ const { data, status, error } =
             class="h-full"
           />
         </div>
+
+        <div v-if="data && data.length == 0">No available tours :(</div>
       </div>
     </div>
   </div>

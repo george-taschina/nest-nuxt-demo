@@ -8,7 +8,7 @@ export const getNumberOfSuccessfulBookedSeats = (tour: Tour) =>
 
 export const getNumberOfReservedSeats = (tour: Tour): number =>
   tour.reservations
-    .filter((reservation) => reservation.expiresAt < new Date())
+    .filter((reservation) => reservation.expiresAt >= new Date())
     .reduce((sum, reservation) => sum + reservation.seatsReserved, 0);
 
 export const countTotalOccupiedSeats = (tour: Tour): number => {
