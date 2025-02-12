@@ -3,6 +3,7 @@ import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import * as TE from 'fp-ts/TaskEither';
 import {
   DatabaseError,
+  ForbiddenError,
   NotFoundError,
 } from '@has-george-read-backend/core/types/errors';
 import { BookingRepository } from '../repositories/booking.repository';
@@ -22,11 +23,15 @@ export class BookingService extends BaseService {
 
   public createBooking(
     reservationId: string
-  ): TE.TaskEither<NotFoundError | DatabaseError, Booking> {
+  ): TE.TaskEither<NotFoundError | DatabaseError | ForbiddenError, Booking> {
     return pipe(
       TE.Do,
       TE.bindW('reservation', () =>
         this.reservationService.getByIdOrFail(reservationId)
+      ),
+      TE.filterOrElseW(
+        ({ reservation }) => !reservation.isExpired,
+        () => new ForbiddenError('The reservation has expired.')
       ),
       TE.bindW('booking', ({ reservation }) =>
         this.bookingRepository.createBooking({

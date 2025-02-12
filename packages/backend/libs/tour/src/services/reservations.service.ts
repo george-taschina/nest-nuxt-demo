@@ -34,7 +34,7 @@ export class ReservationService extends BaseService {
       this.reservationRepository.getById(reservationId),
       TE.filterOrElseW(
         (result) => O.isSome(result),
-        () => new NotFoundError('Could not find tour')
+        () => new NotFoundError('Could not find reservation')
       ),
       TE.map((result) => result.value)
     );

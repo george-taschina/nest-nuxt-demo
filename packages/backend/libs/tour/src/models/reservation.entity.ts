@@ -41,6 +41,11 @@ export class Reservation {
   @ApiProperty()
   createdAt: Date = new Date();
 
+  @Property({ persist: false })
+  get isExpired() {
+    return new Date() >= this.expiresAt;
+  }
+
   constructor(data?: Partial<Reservation>) {
     if (data) Object.assign(this, data);
   }
