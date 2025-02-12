@@ -1,8 +1,13 @@
+import { Booking } from '@has-george-read-backend/tour/models/booking.entity';
+import { Reservation } from '@has-george-read-backend/tour/models/reservation.entity';
 import { Tour } from '@has-george-read-backend/tour/models/tour.entity';
 import { TourGetAvailableResponse } from '@has-george-read/shared/domain/tour/tour-get-available';
 import { unsafeForceBrandToType } from '@has-george-read/shared/types/brand';
 
-export const createFixtureTour = () =>
+export const createFixtureTour = (
+  reservations?: Reservation[],
+  bookings?: Booking[]
+) =>
   unsafeForceBrandToType<Tour>({
     id: '4f4bd032-e7d4-402a-bdf6-aaf6be240d53',
     slug: 'iceland-hunting-northern-lights',
@@ -20,8 +25,8 @@ export const createFixtureTour = () =>
       party: 10,
     },
     totalSeats: 5,
-    bookings: [],
-    reservations: [],
+    bookings: reservations ?? [],
+    reservations: bookings ?? [],
   }) satisfies Tour;
 
 export const createFixtureAvailableTourResponse =

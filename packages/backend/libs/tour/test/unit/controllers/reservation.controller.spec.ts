@@ -52,7 +52,14 @@ describe('ReservationController', () => {
         createFixtureControllerRequestCreateReservation()
       );
 
-      expect(result).toEqual(validReservation);
+      expect(result).toEqual({
+        createdAt: validReservation.createdAt,
+        expiresAt: validReservation.expiresAt,
+        id: validReservation.id,
+        seatsReserved: validReservation.seatsReserved,
+        tourId: undefined,
+        userId: undefined,
+      });
     });
 
     it('should return BadRequest if databaseError', async () => {

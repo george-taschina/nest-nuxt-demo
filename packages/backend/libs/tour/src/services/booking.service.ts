@@ -1,5 +1,5 @@
 import { BaseService } from '@has-george-read-backend/core/services/base.service';
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as TE from 'fp-ts/TaskEither';
 import {
   DatabaseError,
@@ -15,7 +15,6 @@ import { pipe } from 'fp-ts/lib/function';
 export class BookingService extends BaseService {
   constructor(
     private readonly bookingRepository: BookingRepository,
-    @Inject(forwardRef(() => ReservationService))
     private readonly reservationService: ReservationService
   ) {
     super();
@@ -44,11 +43,5 @@ export class BookingService extends BaseService {
       TE.tapIO(() => this.reservationService.cancelReservation(reservationId)),
       TE.map(({ booking }) => booking)
     );
-  }
-
-  public getPendingOrCompletedBookingsByTourId(
-    tourId: string
-  ): TE.TaskEither<DatabaseError, Booking[]> {
-    return this.bookingRepository.getPendingOrCompletedBookingsByTourId(tourId);
   }
 }

@@ -10,7 +10,6 @@ import {
   NotFoundError,
 } from '@has-george-read-backend/core/types/errors';
 import { ReservationRepository } from '@has-george-read-backend/tour/repositories/reservation.repository';
-import { BookingService } from '@has-george-read-backend/tour/services/booking.service';
 import { TourService } from '@has-george-read-backend/tour/services/tour.service';
 import { createFixtureTour } from '../../fixtures/fixture-tour';
 import { createFixtureReservation } from '../../fixtures/fixture-reservation';
@@ -19,7 +18,6 @@ import { createFixtureBooking } from '../../fixtures/fixture-booking';
 describe('ReservationService', () => {
   let testingModule: TestingModule;
   let reservationRepository: DeepMocked<ReservationRepository>;
-  let bookingService: DeepMocked<BookingService>;
   let tourService: DeepMocked<TourService>;
 
   let reservationService: ReservationService;
@@ -33,7 +31,6 @@ describe('ReservationService', () => {
 
     reservationRepository = await testingModule.get(ReservationRepository);
     reservationService = await testingModule.get(ReservationService);
-    bookingService = await testingModule.get(BookingService);
     tourService = await testingModule.get(TourService);
   });
 
@@ -60,51 +57,16 @@ describe('ReservationService', () => {
       expect(result).toEqualLeft(notFoundError);
     });
 
-    it('should return databaseError if reservationRepositoy.getReservationsByTourId returns databaseError', async () => {
-      const databaseError = new DatabaseError('Error getting reservations');
-      const validTour = createFixtureTour();
-      tourService.findByIdOrFail.mockReturnValueOnce(TE.right(validTour));
-      reservationRepository.getReservationsByTourId.mockReturnValueOnce(
-        TE.left(databaseError)
-      );
-
-      const result = await reservationService.reserveSeats('', '', 5)();
-
-      expect(result).toEqualLeft(databaseError);
-    });
-
-    it('should return databaseError if bookingService.getPendingOrCompletedBookingsByTourId returns databaseError', async () => {
-      const databaseError = new DatabaseError('Error getting bookings');
-      const validTour = createFixtureTour();
-      const validReservation = createFixtureReservation();
-      tourService.findByIdOrFail.mockReturnValueOnce(TE.right(validTour));
-      reservationRepository.getReservationsByTourId.mockReturnValueOnce(
-        TE.right([validReservation])
-      );
-      bookingService.getPendingOrCompletedBookingsByTourId.mockReturnValueOnce(
-        TE.left(databaseError)
-      );
-
-      const result = await reservationService.reserveSeats('', '', 5)();
-
-      expect(result).toEqualLeft(databaseError);
-    });
-
     it('should return ConflictError if there are not enough seats', async () => {
       const conflictError = new ConflictError('Not enough seats available.');
-      const validTour = createFixtureTour();
-      validTour.totalSeats = 3;
+
       const validReservation = createFixtureReservation();
       validReservation.seatsReserved = 1;
       const validBooking = createFixtureBooking();
       validBooking.seatsBooked = 1;
+      const validTour = createFixtureTour([validReservation], [validBooking]);
+      validTour.totalSeats = 3;
       tourService.findByIdOrFail.mockReturnValueOnce(TE.right(validTour));
-      reservationRepository.getReservationsByTourId.mockReturnValueOnce(
-        TE.right([validReservation])
-      );
-      bookingService.getPendingOrCompletedBookingsByTourId.mockReturnValueOnce(
-        TE.right([validBooking])
-      );
 
       const result = await reservationService.reserveSeats('', '', 2)();
 
@@ -118,12 +80,6 @@ describe('ReservationService', () => {
       const validReservation = createFixtureReservation();
       validReservation.seatsReserved = 1;
       tourService.findByIdOrFail.mockReturnValueOnce(TE.right(validTour));
-      reservationRepository.getReservationsByTourId.mockReturnValueOnce(
-        TE.right([validReservation])
-      );
-      bookingService.getPendingOrCompletedBookingsByTourId.mockReturnValueOnce(
-        TE.right([])
-      );
       reservationRepository.reserveSeats.mockReturnValueOnce(
         TE.left(databaseError)
       );
@@ -140,12 +96,6 @@ describe('ReservationService', () => {
       const validReservation = createFixtureReservation();
       validReservation.seatsReserved = 1;
       tourService.findByIdOrFail.mockReturnValueOnce(TE.right(validTour));
-      reservationRepository.getReservationsByTourId.mockReturnValueOnce(
-        TE.right([validReservation])
-      );
-      bookingService.getPendingOrCompletedBookingsByTourId.mockReturnValueOnce(
-        TE.right([])
-      );
       reservationRepository.reserveSeats.mockReturnValueOnce(
         TE.right(validReservation)
       );
@@ -163,12 +113,6 @@ describe('ReservationService', () => {
       const validReservation = createFixtureReservation();
       validReservation.seatsReserved = 1;
       tourService.findByIdOrFail.mockReturnValueOnce(TE.right(validTour));
-      reservationRepository.getReservationsByTourId.mockReturnValueOnce(
-        TE.right([validReservation])
-      );
-      bookingService.getPendingOrCompletedBookingsByTourId.mockReturnValueOnce(
-        TE.right([])
-      );
       reservationRepository.reserveSeats.mockReturnValueOnce(
         TE.right(validReservation)
       );
@@ -185,12 +129,6 @@ describe('ReservationService', () => {
       const validReservation = createFixtureReservation();
       validReservation.seatsReserved = 1;
       tourService.findByIdOrFail.mockReturnValueOnce(TE.right(validTour));
-      reservationRepository.getReservationsByTourId.mockReturnValueOnce(
-        TE.right([validReservation])
-      );
-      bookingService.getPendingOrCompletedBookingsByTourId.mockReturnValueOnce(
-        TE.right([])
-      );
       reservationRepository.reserveSeats.mockReturnValueOnce(
         TE.right(validReservation)
       );

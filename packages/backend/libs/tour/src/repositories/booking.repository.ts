@@ -13,24 +13,6 @@ export interface CreateBooking {
 }
 
 export class BookingRepository extends EntityRepository<Booking> {
-  public getPendingOrCompletedBookingsByTourId(
-    tourId: string
-  ): TE.TaskEither<DatabaseError, Booking[]> {
-    return TE.tryCatch(
-      () => {
-        return this.find({
-          tour: tourId,
-          paymentStatus: {
-            $in: ['pending', 'completed'],
-          },
-        });
-      },
-      (cause) => {
-        return new DatabaseError('Error getting bookings', { cause });
-      }
-    );
-  }
-
   public createBooking(
     bookingRequest: CreateBooking
   ): TE.TaskEither<DatabaseError, Booking> {

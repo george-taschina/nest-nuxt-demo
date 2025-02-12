@@ -70,22 +70,4 @@ export class ReservationRepository extends EntityRepository<Reservation> {
       }
     );
   }
-
-  public getReservationsByTourId(
-    tourId: string
-  ): TE.TaskEither<DatabaseError, Reservation[]> {
-    return TE.tryCatch(
-      () => {
-        return this.find({
-          tour: tourId,
-          expiresAt: {
-            $gte: new Date(),
-          },
-        });
-      },
-      (cause) => {
-        return new DatabaseError('Error getting reservations', { cause });
-      }
-    );
-  }
 }

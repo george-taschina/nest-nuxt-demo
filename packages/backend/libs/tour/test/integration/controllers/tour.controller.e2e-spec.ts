@@ -32,7 +32,7 @@ describe('Tour', () => {
         .send({
           tourId: '4f4bd032-e7d4-402a-bdf6-aaf6be240d53',
           email: 'test@email.com',
-          numberOfSeats: 1,
+          numberOfSeats: 2,
         })
         .expect(201);
       expect(body).toHaveProperty('id');
@@ -40,7 +40,7 @@ describe('Tour', () => {
       expect(body).toHaveProperty('expiresAt');
     });
 
-    it('should return 400 because all seats have been reserved or booked', async () => {
+    it('should return 409 because all seats have been reserved or booked', async () => {
       await request(app.getHttpServer())
         .post('/reservations')
         .send({
@@ -48,7 +48,7 @@ describe('Tour', () => {
           email: 'test@email.com',
           numberOfSeats: 1,
         })
-        .expect(400);
+        .expect(409);
     });
   });
 

@@ -1,7 +1,7 @@
 import { Reservation } from '../models/reservation.entity';
 import { BaseService } from '@has-george-read-backend/core/services/base.service';
 import { ReservationRepository } from '../repositories/reservation.repository';
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as TE from 'fp-ts/TaskEither';
 import {
   ConflictError,
@@ -10,9 +10,9 @@ import {
   NotFoundError,
 } from '@has-george-read-backend/core/types/errors';
 import { pipe } from 'fp-ts/function';
-import { BookingService } from './booking.service';
 import { TourService } from './tour.service';
 import * as O from 'fp-ts/Option';
+import { countTotalOccupiedSeats } from './utils/tour.utils';
 
 const SECONDS_TO_RESERVE_SEATS = 900;
 
@@ -20,8 +20,6 @@ const SECONDS_TO_RESERVE_SEATS = 900;
 export class ReservationService extends BaseService {
   constructor(
     private readonly reservationRepository: ReservationRepository,
-    @Inject(forwardRef(() => BookingService))
-    private readonly bookingService: BookingService,
     private readonly tourService: TourService
   ) {
     super();
@@ -63,24 +61,8 @@ export class ReservationService extends BaseService {
     return pipe(
       TE.Do,
       TE.bindW('tour', () => this.tourService.findByIdOrFail(tourId)),
-      TE.bindW('reservations', () =>
-        this.reservationRepository.getReservationsByTourId(tourId)
-      ),
-      TE.bindW('bookings', () =>
-        this.bookingService.getPendingOrCompletedBookingsByTourId(tourId)
-      ),
-      TE.bindW('totalBlockedSeats', ({ reservations, bookings }) => {
-        const nBookedSeats: number = bookings.reduce(
-          (sum, booking) => sum + booking.seatsBooked,
-          0
-        );
-
-        const nReservedSeats: number = reservations.reduce(
-          (sum, reservation) => sum + reservation.seatsReserved,
-          0
-        );
-
-        return TE.of(nBookedSeats + nReservedSeats);
+      TE.bindW('totalBlockedSeats', ({ tour }) => {
+        return TE.of(countTotalOccupiedSeats(tour));
       }),
       TE.filterOrElseW(
         ({ tour, totalBlockedSeats }) =>
