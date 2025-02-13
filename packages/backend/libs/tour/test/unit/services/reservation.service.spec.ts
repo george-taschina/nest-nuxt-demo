@@ -144,8 +144,6 @@ describe('ReservationService', () => {
 
       const result = await reservationService.reserveSeats('', '', 1)();
 
-      console.debug(result);
-
       expect(tourService.lockAndUpdateById).toHaveBeenCalledTimes(3);
 
       expect(result).toEqualRight(validReservation);
