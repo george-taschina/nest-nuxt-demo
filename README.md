@@ -4,7 +4,7 @@ A full-stack application with Nuxt 3 frontend and NestJS backend in a monorepo s
 
 ## 🚀 Prerequisites
 
-- Docker (20.10.0+ recommended)
+- Docker
 - Node.js >20.x
 - npm (version compatible with Node 20+)
 - Make (optional, but recommended for command shortcuts)
