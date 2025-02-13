@@ -106,7 +106,7 @@ describe('ReservationService', () => {
       expect(result).toEqualLeft(databaseError);
     });
 
-    it('should return LockError if tourService.lockAndUpdateById returns LockError', async () => {
+    it('should return LockError and retry 2 times if tourService.lockAndUpdateById returns LockError', async () => {
       const lockError = new LockError('Error creating Reservation');
       const validTour = createFixtureTour();
       validTour.totalSeats = 2;
@@ -116,11 +116,39 @@ describe('ReservationService', () => {
       reservationRepository.reserveSeats.mockReturnValueOnce(
         TE.right(validReservation)
       );
-      tourService.lockAndUpdateById.mockReturnValueOnce(TE.left(lockError));
+      tourService.lockAndUpdateById.mockReturnValue(TE.left(lockError));
 
       const result = await reservationService.reserveSeats('', '', 1)();
 
+      expect(tourService.lockAndUpdateById).toHaveBeenCalledTimes(3);
       expect(result).toEqualLeft(lockError);
+    });
+
+    it('should return valid reservation after retrying 2 times if tourService.lockAndUpdateById returns LockError', async () => {
+      const lockError = new LockError('Error creating Reservation');
+      const validTour = createFixtureTour();
+      validTour.totalSeats = 2;
+      const validReservation = createFixtureReservation();
+      validReservation.seatsReserved = 1;
+
+      tourService.findByIdOrFail.mockReturnValueOnce(TE.right(validTour));
+
+      reservationRepository.reserveSeats.mockReturnValueOnce(
+        TE.right(validReservation)
+      );
+
+      tourService.lockAndUpdateById
+        .mockReturnValueOnce(TE.left(lockError)) // First call returns LockError
+        .mockReturnValueOnce(TE.left(lockError)) // Second call returns LockError
+        .mockReturnValueOnce(TE.right(validTour)); // Third call returns LockError
+
+      const result = await reservationService.reserveSeats('', '', 1)();
+
+      console.debug(result);
+
+      expect(tourService.lockAndUpdateById).toHaveBeenCalledTimes(3);
+
+      expect(result).toEqualRight(validReservation);
     });
 
     it('should return valid Reservation', async () => {
