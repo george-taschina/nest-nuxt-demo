@@ -21,7 +21,7 @@ async function bootstrap() {
   initSentry();
   const logger = new GeorgeLogger('Main');
   const app = await NestFactory.create(AppModule, {
-    logger: createLoggerModule('Has George Read - API'),
+    logger: createLoggerModule('Nest Nuxt Demo - API'),
   });
 
   app.use(helmet());
