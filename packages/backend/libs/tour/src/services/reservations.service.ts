@@ -14,7 +14,6 @@ import { TourService } from './tour.service';
 import * as O from 'fp-ts/Option';
 import { countTotalOccupiedSeats } from './utils/tour.utils';
 import * as T from 'fp-ts//Task';
-import { Tour } from '../models/tour.entity';
 
 export const SECONDS_TO_RESERVE_SEATS = 900;
 export const MAX_RETRIES = 2;
@@ -58,7 +57,9 @@ export class ReservationService extends BaseService {
   public reserveSeats(
     tourId: string,
     userId: string,
-    numberOfSeats: number
+    numberOfSeats: number,
+    retries = 0,
+    delay = INITIAL_BACKOFF_DELAY
   ): TE.TaskEither<
     ConflictError | DatabaseError | LockError | NotFoundError,
     Reservation
@@ -81,12 +82,27 @@ export class ReservationService extends BaseService {
           numberOfSeats,
           tour.version
         )
-      )
-    );
-  }
+      ),
+      TE.orElse((error) => {
+        if (retries >= MAX_RETRIES || !(error instanceof LockError)) {
+          return TE.left(error);
+        }
 
-  private delay(ms: number): T.Task<void> {
-    return () => new Promise((resolve) => setTimeout(resolve, ms));
+        return pipe(
+          this.delay(delay),
+          TE.fromTask,
+          TE.flatMap(() =>
+            this.reserveSeats(
+              tourId,
+              userId,
+              numberOfSeats,
+              retries + 1,
+              delay * BACKOFF_FACTOR
+            )
+          )
+        );
+      })
+    );
   }
 
   public createReservationAndCheckForLocks(
@@ -105,52 +121,11 @@ export class ReservationService extends BaseService {
         numberOfSeats,
         SECONDS_TO_RESERVE_SEATS
       ),
-      TE.tap(() =>
-        this.attemptReservation(
-          tourId,
-          userId,
-          numberOfSeats,
-          tourVersion,
-          0,
-          INITIAL_BACKOFF_DELAY
-        )
-      )
+      TE.tap(() => this.tourService.lockAndUpdateById(tourId, tourVersion))
     );
   }
 
-  private attemptReservation(
-    tourId: string,
-    userId: string,
-    numberOfSeats: number,
-    tourVersion: number,
-    retries: number,
-    delay: number
-  ): TE.TaskEither<
-    ConflictError | DatabaseError | LockError | NotFoundError,
-    Tour
-  > {
-    return pipe(
-      this.tourService.lockAndUpdateById(tourId, tourVersion),
-      TE.orElse((error) => {
-        if (retries >= MAX_RETRIES || !(error instanceof LockError)) {
-          return TE.left(error);
-        }
-
-        return pipe(
-          this.delay(delay),
-          TE.fromTask,
-          TE.flatMap(() =>
-            this.attemptReservation(
-              tourId,
-              userId,
-              numberOfSeats,
-              tourVersion,
-              retries + 1,
-              delay * BACKOFF_FACTOR
-            )
-          )
-        );
-      })
-    );
+  private delay(ms: number): T.Task<void> {
+    return () => new Promise((resolve) => setTimeout(resolve, ms));
   }
 }

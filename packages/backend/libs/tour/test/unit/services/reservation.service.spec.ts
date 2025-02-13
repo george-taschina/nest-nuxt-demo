@@ -112,8 +112,8 @@ describe('ReservationService', () => {
       validTour.totalSeats = 2;
       const validReservation = createFixtureReservation();
       validReservation.seatsReserved = 1;
-      tourService.findByIdOrFail.mockReturnValueOnce(TE.right(validTour));
-      reservationRepository.reserveSeats.mockReturnValueOnce(
+      tourService.findByIdOrFail.mockReturnValue(TE.right(validTour));
+      reservationRepository.reserveSeats.mockReturnValue(
         TE.right(validReservation)
       );
       tourService.lockAndUpdateById.mockReturnValue(TE.left(lockError));
@@ -131,9 +131,9 @@ describe('ReservationService', () => {
       const validReservation = createFixtureReservation();
       validReservation.seatsReserved = 1;
 
-      tourService.findByIdOrFail.mockReturnValueOnce(TE.right(validTour));
+      tourService.findByIdOrFail.mockReturnValue(TE.right(validTour));
 
-      reservationRepository.reserveSeats.mockReturnValueOnce(
+      reservationRepository.reserveSeats.mockReturnValue(
         TE.right(validReservation)
       );
 
@@ -161,6 +161,8 @@ describe('ReservationService', () => {
       tourService.lockAndUpdateById.mockReturnValueOnce(TE.right(validTour));
 
       const result = await reservationService.reserveSeats('test', 'test', 1)();
+
+      expect(tourService.lockAndUpdateById).toHaveBeenCalledTimes(1);
 
       expect(result).toEqualRight(validReservation);
     });

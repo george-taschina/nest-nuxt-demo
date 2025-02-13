@@ -20,7 +20,9 @@ export class TourRepository extends EntityRepository<Tour> {
     return pipe(
       TE.tryCatch(
         () => {
-          return this.findOne(
+          const em = this.em.fork();
+          return em.findOne(
+            Tour,
             {
               id: tourId,
             },
@@ -30,7 +32,9 @@ export class TourRepository extends EntityRepository<Tour> {
           );
         },
         (cause) => {
-          return new DatabaseError('Error getting tours', { cause });
+          return new DatabaseError('Error getting tour in findById', {
+            cause,
+          });
         }
       ),
       TE.map((result) => O.fromNullable(result))
@@ -44,23 +48,27 @@ export class TourRepository extends EntityRepository<Tour> {
     return pipe(
       TE.tryCatch(
         async () => {
-          const tour = await this.findOneOrFail({
+          await this.em.begin();
+
+          const tour = await this.em.findOneOrFail(Tour, {
             id: tourId,
           });
           await this.em.lock(tour, LockMode.OPTIMISTIC, expectedVersion);
 
           tour.updatedAt = new Date();
 
-          await this.em.flush();
+          await this.em.commit();
 
           return tour;
         },
         (cause) => {
           if (cause instanceof OptimisticLockError) {
+            this.em.rollback();
             return new LockError('This tour has already been locked, retry.', {
               cause,
             });
           }
+          this.em.rollback();
           return new DatabaseError('Error in locking tour', { cause });
         }
       )
