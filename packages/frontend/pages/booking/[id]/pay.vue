@@ -70,7 +70,10 @@ const handlePayment = async () => {
 </script>
 
 <template>
-  <div class="min-h-screen container mx-auto p-6 max-w-6xl">
+  <div
+    class="min-h-screen container mx-auto p-6 max-w-6xl"
+    v-if="reservationData"
+  >
     <div class="bg-red-100 shadow-md rounded-md p-6">
       <h1 class="text-red-500 font-bold text-xl">Attenzione!</h1>
       <p class="text-gray-600">
