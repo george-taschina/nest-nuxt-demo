@@ -26,6 +26,7 @@ services:
     tty: true
     environment:
       - CI_JOB_TOKEN=${CI_JOB_TOKEN}
+      - API_BASE_URL=http://george_be:3000/v1
     volumes:
       - ./:/app/
     depends_on:

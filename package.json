@@ -9,7 +9,11 @@
   ],
   "scripts": {
     "backend:start:dev": "npm --C packages/backend run start:dev",
-    "frontend:start:dev": "npm --C packages/frontend run dev"
+    "backend:test": "npm --C packages/backend run test",
+    "backend:test:e2e": "npm --C packages/backend run test:e2e",
+    "backend:typecheck": "npm --C packages/backend run typecheck",
+    "frontend:start:dev": "npm --C packages/frontend run dev",
+    "frontend:typecheck": "(cd packages/frontend && npm exec nuxt typecheck)"
   },
   "dependencies": {
     "fp-ts": "^2.16.9",

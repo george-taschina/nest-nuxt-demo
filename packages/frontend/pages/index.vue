@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import type { TourGetAvailableResponse } from '@has-george-read/shared/domain/tour/tour-get-available';
 
+useHead({
+  title: 'WeRoad Demo',
+  meta: [
+    { name: 'We Road Demo', content: 'My amazing site that simulates weroad' },
+  ],
+});
+
 const { data, status, error } =
   await useApi<TourGetAvailableResponse[]>('tours');
 </script>
@@ -30,7 +37,12 @@ const { data, status, error } =
         <div
           class="hidden md:block absolute -right-10 bottom-0 w-[200px] sm:w-[350px] md:w-[400px] lg:w-[450px] z-2"
         >
-          <NuxtImg format="webp" loading="lazy" src="/palm.png" />
+          <NuxtImg
+            format="webp"
+            alt="confused-traveler"
+            src="/traveler.webp"
+            sizes="100vw sm:50vw md:400px"
+          />
         </div>
       </div>
 

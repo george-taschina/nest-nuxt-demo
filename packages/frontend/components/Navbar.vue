@@ -5,7 +5,7 @@
         <!-- Left side logo/name -->
         <div class="flex-shrink-0 flex items-center">
           <NuxtLink to="/" class="text-xl font-bold text-gray-800">
-            <NuxtImg src="/logo.svg" width="100" />
+            <NuxtImg src="/logo.svg" width="100" alt="weroad-logo" />
           </NuxtLink>
         </div>
 
