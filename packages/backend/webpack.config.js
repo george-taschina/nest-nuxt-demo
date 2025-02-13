@@ -15,5 +15,6 @@ module.exports = function (options) {
         'mariadb/callback': 'mariadb/callback',
       },
     ],
+    externalsPresets: { node: true },
   };
 };
