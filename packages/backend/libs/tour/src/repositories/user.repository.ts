@@ -1,7 +1,7 @@
 import { EntityRepository } from '@mikro-orm/mysql';
-import { User } from '@has-george-read-backend/tour/models/user.entity';
+import { User } from '@nest-nuxt-demo-backend/tour/models/user.entity';
 import * as TE from 'fp-ts/TaskEither';
-import { DatabaseError } from '@has-george-read-backend/core/types/errors';
+import { DatabaseError } from '@nest-nuxt-demo-backend/core/types/errors';
 import * as O from 'fp-ts/Option';
 import { pipe } from 'fp-ts/function';
 

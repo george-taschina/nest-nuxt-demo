@@ -1,7 +1,7 @@
-import { BaseService } from '@has-george-read-backend/core/services/base.service';
+import { BaseService } from '@nest-nuxt-demo-backend/core/services/base.service';
 import { Injectable } from '@nestjs/common';
 import * as TE from 'fp-ts/TaskEither';
-import { DatabaseError } from '@has-george-read-backend/core/types/errors';
+import { DatabaseError } from '@nest-nuxt-demo-backend/core/types/errors';
 import { pipe } from 'fp-ts/function';
 import * as O from 'fp-ts/Option';
 import { UserRepository } from '../repositories/user.repository';

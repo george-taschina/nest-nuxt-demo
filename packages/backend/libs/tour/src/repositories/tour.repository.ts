@@ -4,11 +4,11 @@ import {
   OptimisticLockError,
 } from '@mikro-orm/mysql';
 import * as TE from 'fp-ts/TaskEither';
-import { Tour } from '@has-george-read-backend/tour/models/tour.entity';
+import { Tour } from '@nest-nuxt-demo-backend/tour/models/tour.entity';
 import {
   DatabaseError,
   LockError,
-} from '@has-george-read-backend/core/types/errors';
+} from '@nest-nuxt-demo-backend/core/types/errors';
 import moment from 'moment';
 import * as O from 'fp-ts/Option';
 import { pipe } from 'fp-ts/function';

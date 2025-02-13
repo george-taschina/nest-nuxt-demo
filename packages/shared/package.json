@@ -1,5 +1,5 @@
 {
-    "name": "@has-george-read/shared",
+    "name": "@nest-nuxt-demo/shared",
     "version": "1.0.0",
     "main": "index.ts",
     "private": true,

@@ -1,6 +1,6 @@
 import { CreateReservationDto } from './../../src/documentation/create-reservation';
-import { Reservation } from '@has-george-read-backend/tour/models/reservation.entity';
-import { unsafeForceBrandToType } from '@has-george-read/shared/types/brand';
+import { Reservation } from '@nest-nuxt-demo-backend/tour/models/reservation.entity';
+import { unsafeForceBrandToType } from '@nest-nuxt-demo/shared/types/brand';
 import moment from 'moment';
 
 export const createFixtureReservation = () =>

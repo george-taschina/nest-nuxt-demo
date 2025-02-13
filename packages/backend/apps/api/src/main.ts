@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { GeorgeLogger } from '@has-george-read-backend/core';
-import { createLoggerModule } from '@has-george-read-backend/core/logger/utils';
-import { initSentry } from '@has-george-read-backend/core/logger/sentry';
+import { GeorgeLogger } from '@nest-nuxt-demo-backend/core';
+import { createLoggerModule } from '@nest-nuxt-demo-backend/core/logger/utils';
+import { initSentry } from '@nest-nuxt-demo-backend/core/logger/sentry';
 import helmet from 'helmet';
 import * as Sentry from '@sentry/node';
 import { json } from 'express';
@@ -13,8 +13,8 @@ import {
 } from '@nestjs/common';
 import { AppConfig } from './types/app-config';
 import { APP_CONFIG_KEY } from './config/app-config.loader';
-import { InternalError } from '@has-george-read-backend/core/types/errors';
-import { isProd } from '@has-george-read-backend/core/utils/environments';
+import { InternalError } from '@nest-nuxt-demo-backend/core/types/errors';
+import { isProd } from '@nest-nuxt-demo-backend/core/utils/environments';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {

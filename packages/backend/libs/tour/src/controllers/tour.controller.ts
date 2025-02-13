@@ -1,10 +1,10 @@
-import { TourGetAvailableResponse } from '@has-george-read/shared/domain/tour/tour-get-available';
+import { TourGetAvailableResponse } from '@nest-nuxt-demo/shared/domain/tour/tour-get-available';
 import { Controller, Get, Param } from '@nestjs/common';
 import { TourService } from '../services/tour.service';
 import {
   TEmapLeftToHttpError,
   TEThrowIfError,
-} from '@has-george-read-backend/core/controllers/controller-utils';
+} from '@nest-nuxt-demo-backend/core/controllers/controller-utils';
 
 import { pipe } from 'fp-ts/function';
 import {

@@ -1,11 +1,11 @@
-import { BaseService } from '@has-george-read-backend/core/services/base.service';
+import { BaseService } from '@nest-nuxt-demo-backend/core/services/base.service';
 import { Injectable } from '@nestjs/common';
 import * as TE from 'fp-ts/TaskEither';
 import {
   DatabaseError,
   ForbiddenError,
   NotFoundError,
-} from '@has-george-read-backend/core/types/errors';
+} from '@nest-nuxt-demo-backend/core/types/errors';
 import { BookingRepository } from '../repositories/booking.repository';
 import { Booking } from '../models/booking.entity';
 import { ReservationService } from './reservations.service';

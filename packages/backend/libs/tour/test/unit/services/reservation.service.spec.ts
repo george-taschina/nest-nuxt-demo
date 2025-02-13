@@ -1,5 +1,5 @@
 import { createMock, DeepMocked } from '@golevelup/ts-jest';
-import { ReservationService } from '@has-george-read-backend/tour/services/reservations.service';
+import { ReservationService } from '@nest-nuxt-demo-backend/tour/services/reservations.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as TE from 'fp-ts/TaskEither';
 
@@ -8,9 +8,9 @@ import {
   DatabaseError,
   LockError,
   NotFoundError,
-} from '@has-george-read-backend/core/types/errors';
-import { ReservationRepository } from '@has-george-read-backend/tour/repositories/reservation.repository';
-import { TourService } from '@has-george-read-backend/tour/services/tour.service';
+} from '@nest-nuxt-demo-backend/core/types/errors';
+import { ReservationRepository } from '@nest-nuxt-demo-backend/tour/repositories/reservation.repository';
+import { TourService } from '@nest-nuxt-demo-backend/tour/services/tour.service';
 import { createFixtureTour } from '../../fixtures/fixture-tour';
 import { createFixtureReservation } from '../../fixtures/fixture-reservation';
 import { createFixtureBooking } from '../../fixtures/fixture-booking';

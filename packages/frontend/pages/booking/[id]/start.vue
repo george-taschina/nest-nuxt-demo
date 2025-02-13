@@ -2,7 +2,7 @@
 import {
   reservationResponseCodec,
   type ReservationResponse,
-} from '@has-george-read/shared/domain/tour/reservation';
+} from '@nest-nuxt-demo/shared/domain/tour/reservation';
 import { pipe } from 'fp-ts/lib/function';
 import * as E from 'fp-ts/Either';
 import { useReservationStore } from '~/stores/useReservationStore';

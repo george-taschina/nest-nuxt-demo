@@ -1,4 +1,4 @@
-import { Reservation } from '@has-george-read-backend/tour/models/reservation.entity';
+import { Reservation } from '@nest-nuxt-demo-backend/tour/models/reservation.entity';
 import type { EntityManager } from '@mikro-orm/core';
 import { Seeder } from '@mikro-orm/seeder';
 

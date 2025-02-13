@@ -1,5 +1,5 @@
-import { Tour } from '@has-george-read-backend/tour/models/tour.entity';
-import { TourGetAvailableResponse } from '@has-george-read/shared/domain/tour/tour-get-available';
+import { Tour } from '@nest-nuxt-demo-backend/tour/models/tour.entity';
+import { TourGetAvailableResponse } from '@nest-nuxt-demo/shared/domain/tour/tour-get-available';
 
 export const getNumberOfSuccessfulBookedSeats = (tour: Tour) =>
   tour.bookings

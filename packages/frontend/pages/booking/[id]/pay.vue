@@ -2,7 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import moment from 'moment';
 import { useReservationStore } from '~/stores/useReservationStore';
-import { bookingResponseCodec } from '@has-george-read/shared/domain/tour/booking';
+import { bookingResponseCodec } from '@nest-nuxt-demo/shared/domain/tour/booking';
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/function';
 

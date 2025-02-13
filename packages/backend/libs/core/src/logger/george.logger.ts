@@ -1,4 +1,4 @@
-import { getExtraLoggingInfo } from '@has-george-read-backend/core/logger/get-extra-logging-info';
+import { getExtraLoggingInfo } from '@nest-nuxt-demo-backend/core/logger/get-extra-logging-info';
 import * as Sentry from '@sentry/node';
 import { Logger } from '@nestjs/common';
 import { ApplicationExtendedException, InternalError } from '../types/errors';

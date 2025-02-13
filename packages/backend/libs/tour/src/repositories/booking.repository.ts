@@ -1,7 +1,7 @@
 import { EntityRepository } from '@mikro-orm/mysql';
-import { Booking } from '@has-george-read-backend/tour/models/booking.entity';
+import { Booking } from '@nest-nuxt-demo-backend/tour/models/booking.entity';
 import * as TE from 'fp-ts/TaskEither';
-import { DatabaseError } from '@has-george-read-backend/core/types/errors';
+import { DatabaseError } from '@nest-nuxt-demo-backend/core/types/errors';
 import { User } from '../models/user.entity';
 import { Tour } from '../models/tour.entity';
 

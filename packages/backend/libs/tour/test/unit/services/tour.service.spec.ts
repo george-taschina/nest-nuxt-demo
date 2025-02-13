@@ -1,13 +1,13 @@
 import { createMock, DeepMocked } from '@golevelup/ts-jest';
-import { TourService } from '@has-george-read-backend/tour/services/tour.service';
+import { TourService } from '@nest-nuxt-demo-backend/tour/services/tour.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as TE from 'fp-ts/TaskEither';
 import {
   createFixtureAvailableTourResponse,
   createFixtureTour,
 } from '../../fixtures/fixture-tour';
-import { DatabaseError } from '@has-george-read-backend/core/types/errors';
-import { TourRepository } from '@has-george-read-backend/tour/repositories/tour.repository';
+import { DatabaseError } from '@nest-nuxt-demo-backend/core/types/errors';
+import { TourRepository } from '@nest-nuxt-demo-backend/tour/repositories/tour.repository';
 
 describe('TourService', () => {
   let testingModule: TestingModule;

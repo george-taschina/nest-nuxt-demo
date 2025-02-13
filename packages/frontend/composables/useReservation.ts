@@ -1,5 +1,5 @@
-import { type ReservationResponse } from '@has-george-read/shared/domain/tour/reservation';
-import type { HttpError } from '@has-george-read/shared/domain/http-error';
+import { type ReservationResponse } from '@nest-nuxt-demo/shared/domain/tour/reservation';
+import type { HttpError } from '@nest-nuxt-demo/shared/domain/http-error';
 
 export const useReservation = (tourId: string) => {
   const config = useRuntimeConfig();

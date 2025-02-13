@@ -1,6 +1,6 @@
-# 🚀 George Has Read Backend
+# 🚀 nest-nuxt-demo Backend
 
-Welcome to **George Has Read Backend**! This project leverages the latest features of Node.js 20 to deliver an optimized and modern experience. Before getting started, ensure you have Node.js 20 installed to avoid compatibility issues.
+Welcome to **nest-nuxt-demo Backend**! This project leverages the latest features of Node.js 20 to deliver an optimized and modern experience. Before getting started, ensure you have Node.js 20 installed to avoid compatibility issues.
 
 ## 📋 Prerequisites
 

@@ -1,8 +1,8 @@
-import { Booking } from '@has-george-read-backend/tour/models/booking.entity';
-import { Reservation } from '@has-george-read-backend/tour/models/reservation.entity';
-import { Tour } from '@has-george-read-backend/tour/models/tour.entity';
-import { TourGetAvailableResponse } from '@has-george-read/shared/domain/tour/tour-get-available';
-import { unsafeForceBrandToType } from '@has-george-read/shared/types/brand';
+import { Booking } from '@nest-nuxt-demo-backend/tour/models/booking.entity';
+import { Reservation } from '@nest-nuxt-demo-backend/tour/models/reservation.entity';
+import { Tour } from '@nest-nuxt-demo-backend/tour/models/tour.entity';
+import { TourGetAvailableResponse } from '@nest-nuxt-demo/shared/domain/tour/tour-get-available';
+import { unsafeForceBrandToType } from '@nest-nuxt-demo/shared/types/brand';
 
 export const createFixtureTour = (
   reservations?: Reservation[],

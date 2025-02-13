@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TourGetAvailableResponse } from '@has-george-read/shared/domain/tour/tour-get-available';
+import type { TourGetAvailableResponse } from '@nest-nuxt-demo/shared/domain/tour/tour-get-available';
 
 useHead({
   title: 'WeRoad Demo',

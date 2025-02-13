@@ -15,10 +15,10 @@
     ],
     "testEnvironment": "node",
     "moduleNameMapper": {
-        "@has-george-read-backend/core/(.*)": "<rootDir>/libs/core/src/$1",
-        "@has-george-read-backend/core": "<rootDir>/libs/core/src",
-        "@has-george-read-backend/tour/(.*)": "<rootDir>/libs/tour/src/$1",
-        "@has-george-read-backend/tour": "<rootDir>/libs/tour/src"
+        "@nest-nuxt-demo-backend/core/(.*)": "<rootDir>/libs/core/src/$1",
+        "@nest-nuxt-demo-backend/core": "<rootDir>/libs/core/src",
+        "@nest-nuxt-demo-backend/tour/(.*)": "<rootDir>/libs/tour/src/$1",
+        "@nest-nuxt-demo-backend/tour": "<rootDir>/libs/tour/src"
     },
     "preset": "ts-jest",
     "setupFilesAfterEnv": [

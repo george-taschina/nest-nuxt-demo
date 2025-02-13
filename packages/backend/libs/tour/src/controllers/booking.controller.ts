@@ -1,9 +1,9 @@
 import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
-import { BookingResponse } from '@has-george-read/shared/domain/tour/booking';
+import { BookingResponse } from '@nest-nuxt-demo/shared/domain/tour/booking';
 import {
   TEmapLeftToHttpError,
   TEThrowIfError,
-} from '@has-george-read-backend/core/controllers/controller-utils';
+} from '@nest-nuxt-demo-backend/core/controllers/controller-utils';
 
 import { pipe } from 'fp-ts/function';
 import {

@@ -1,5 +1,5 @@
-import { Booking } from '@has-george-read-backend/tour/models/booking.entity';
-import { unsafeForceBrandToType } from '@has-george-read/shared/types/brand';
+import { Booking } from '@nest-nuxt-demo-backend/tour/models/booking.entity';
+import { unsafeForceBrandToType } from '@nest-nuxt-demo/shared/types/brand';
 
 export const createFixtureBooking = () =>
   unsafeForceBrandToType<Booking>({

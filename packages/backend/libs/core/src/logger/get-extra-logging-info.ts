@@ -1,4 +1,4 @@
-import ctx from '@has-george-read-backend/core/utils/george-context';
+import ctx from '@nest-nuxt-demo-backend/core/utils/george-context';
 
 const LOGGING_DATA_KEY = 'loggingData';
 const USER_KEY = 'user';

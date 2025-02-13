@@ -1,4 +1,4 @@
-import { BaseService } from '@has-george-read-backend/core/services/base.service';
+import { BaseService } from '@nest-nuxt-demo-backend/core/services/base.service';
 import { TourRepository } from '../repositories/tour.repository';
 import { Injectable } from '@nestjs/common';
 import * as TE from 'fp-ts/TaskEither';
@@ -6,9 +6,9 @@ import {
   DatabaseError,
   LockError,
   NotFoundError,
-} from '@has-george-read-backend/core/types/errors';
+} from '@nest-nuxt-demo-backend/core/types/errors';
 import { pipe } from 'fp-ts/function';
-import { TourGetAvailableResponse } from '@has-george-read/shared/domain/tour/tour-get-available';
+import { TourGetAvailableResponse } from '@nest-nuxt-demo/shared/domain/tour/tour-get-available';
 import {
   isTourFullyBooked,
   mapTourToGetAvailableResponse,

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import type { ReservationResponse } from '@has-george-read/shared/domain/tour/reservation';
-import type { TourGetAvailableResponse } from '@has-george-read/shared/domain/tour/tour-get-available';
+import type { ReservationResponse } from '@nest-nuxt-demo/shared/domain/tour/reservation';
+import type { TourGetAvailableResponse } from '@nest-nuxt-demo/shared/domain/tour/tour-get-available';
 
 interface ReservationState {
   reservation: ReservationResponse | null;

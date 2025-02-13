@@ -1,4 +1,4 @@
-import { CoreModule } from '@has-george-read-backend/core/core.module';
+import { CoreModule } from '@nest-nuxt-demo-backend/core/core.module';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
 import { TourService } from './services/tour.service';

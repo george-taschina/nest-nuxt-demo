@@ -1,5 +1,5 @@
 import { Reservation } from '../models/reservation.entity';
-import { BaseService } from '@has-george-read-backend/core/services/base.service';
+import { BaseService } from '@nest-nuxt-demo-backend/core/services/base.service';
 import { ReservationRepository } from '../repositories/reservation.repository';
 import { Injectable } from '@nestjs/common';
 import * as TE from 'fp-ts/TaskEither';
@@ -8,7 +8,7 @@ import {
   DatabaseError,
   LockError,
   NotFoundError,
-} from '@has-george-read-backend/core/types/errors';
+} from '@nest-nuxt-demo-backend/core/types/errors';
 import { pipe } from 'fp-ts/function';
 import { TourService } from './tour.service';
 import * as O from 'fp-ts/Option';

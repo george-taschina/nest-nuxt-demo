@@ -1,4 +1,4 @@
-import { isProd } from '@has-george-read-backend/core/utils/environments';
+import { isProd } from '@nest-nuxt-demo-backend/core/utils/environments';
 import { registerAs } from '@nestjs/config';
 import * as E from 'fp-ts/Either';
 import * as PathReporter from 'io-ts/PathReporter';

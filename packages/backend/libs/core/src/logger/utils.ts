@@ -3,7 +3,7 @@ import {
   utilities as nestWinstonModuleUtilities,
   WinstonModule,
 } from 'nest-winston';
-import { isDev } from '@has-george-read-backend/core/utils/environments';
+import { isDev } from '@nest-nuxt-demo-backend/core/utils/environments';
 import { match } from 'ts-pattern';
 
 export declare type WinstonLogLevel = 'info' | 'error' | 'warn' | 'debug' | '';

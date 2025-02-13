@@ -1,4 +1,4 @@
-import { User } from '@has-george-read-backend/tour/models/user.entity';
+import { User } from '@nest-nuxt-demo-backend/tour/models/user.entity';
 import type { EntityManager } from '@mikro-orm/core';
 import { Seeder } from '@mikro-orm/seeder';
 

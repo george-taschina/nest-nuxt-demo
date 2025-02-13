@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { Test } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import { TourModule } from '@has-george-read-backend/tour/tour.module';
+import { TourModule } from '@nest-nuxt-demo-backend/tour/tour.module';
 
 describe('Tour', () => {
   let app: INestApplication;

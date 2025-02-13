@@ -3,14 +3,14 @@ import {
   NotFoundError,
 } from './../../../../core/src/types/errors';
 import { createMock, DeepMocked } from '@golevelup/ts-jest';
-import { ReservationController } from '@has-george-read-backend/tour/controllers/reservation.controller';
-import { ReservationService } from '@has-george-read-backend/tour/services/reservations.service';
+import { ReservationController } from '@nest-nuxt-demo-backend/tour/controllers/reservation.controller';
+import { ReservationService } from '@nest-nuxt-demo-backend/tour/services/reservations.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as TE from 'fp-ts/TaskEither';
 import {
   DatabaseError,
   LockError,
-} from '@has-george-read-backend/core/types/errors';
+} from '@nest-nuxt-demo-backend/core/types/errors';
 import {
   createFixtureControllerRequestCreateReservation,
   createFixtureReservation,
