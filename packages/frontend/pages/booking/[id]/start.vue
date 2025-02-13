@@ -8,15 +8,17 @@ import * as E from 'fp-ts/Either';
 import { useReservationStore } from '~/stores/useReservationStore';
 
 const { $pinia } = useNuxtApp();
+const { showError, errorMessage, clearError, triggerError } = useErrorHandler();
 const route = useRoute();
 const reservationStore = useReservationStore($pinia);
 const tourId = route.params.id as string;
 
-const { tourData } = await useTour(tourId);
-const { reservation, reservationError, reserveTour } = useReservation(tourId);
+const { tourData } = await useTour(tourId, triggerError);
+const { reservation, reserveTour } = useReservation(tourId, triggerError);
 
 const numberOfPeople = ref(1);
 const email = ref('');
+const sentRequest = ref(false);
 
 const MIN_PEOPLE = 1;
 const { availableSeats } = tourData;
@@ -58,8 +60,9 @@ const handleReservationSuccess = (
 };
 
 const handleSubmit = async () => {
+  sentRequest.value = true;
   await reserveTour(email.value, numberOfPeople.value);
-
+  sentRequest.value = false;
   const validatedReservation = validateReservationResponse(reservation.value);
   handleReservationSuccess(validatedReservation);
 };
@@ -67,6 +70,7 @@ const handleSubmit = async () => {
 
 <template>
   <div class="min-h-screen container mx-auto p-6 max-w-6xl" v-if="tourData">
+    <ErrorModal :show="showError" :message="errorMessage" @close="clearError" />
     <div class="flex flex-col md:flex-row gap-8">
       <!-- Booking Form -->
       <div class="flex-1 space-y-8">
@@ -117,11 +121,13 @@ const handleSubmit = async () => {
             />
           </section>
 
-          <GeorgeButton type="submit" class="w-full py-4 text-lg">
+          <GeorgeButton
+            type="submit"
+            class="w-full py-4 text-lg"
+            :disable="sentRequest"
+          >
             Prenota
           </GeorgeButton>
-
-          <ReservationErrorMessages :error="reservationError" />
         </form>
       </div>
 

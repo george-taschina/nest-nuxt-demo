@@ -1,7 +1,10 @@
 import { type ReservationResponse } from '@nest-nuxt-demo/shared/domain/tour/reservation';
 import type { HttpError } from '@nest-nuxt-demo/shared/domain/http-error';
 
-export const useReservation = (tourId: string) => {
+export const useReservation = (
+  tourId: string,
+  triggerError: (message: string) => void
+) => {
   const config = useRuntimeConfig();
   const reservation = ref<ReservationResponse>();
   const reservationError = ref<HttpError>();
@@ -18,13 +21,18 @@ export const useReservation = (tourId: string) => {
 
       if (!response.ok) {
         reservationError.value = await response.json();
+        triggerError(
+          reservationError.value?.message?.join(' ') ||
+            'Something went wrong, try again.'
+        );
         return;
       }
       reservation.value = await response.json();
     } catch (error) {
+      triggerError('Something went wrong, try again.');
       console.error('Reservation failed:', error);
     }
   };
 
-  return { reservation, reservationError, reserveTour };
+  return { reservation, reserveTour };
 };
