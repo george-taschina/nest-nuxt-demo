@@ -51,6 +51,22 @@ npm run frontend:start:dev    # Start Nuxt 3 in dev mode
 - Frontend: `http://localhost:8000`
 - Backend: `http://localhost:3000`
 
+## 📚 API Documentation
+
+When running the backend in development mode, Swagger UI is automatically available at:  
+`http://localhost:3000/docs`
+
+This interactive documentation provides:
+
+- All available API endpoints
+- Request/response schemas
+- Direct testing capabilities for endpoints
+
+**Note:** Swagger is only enabled in development mode. To access it:
+
+1. Ensure you're running the backend with `npm run backend:start:dev`
+2. Open the Swagger UI in your browser at the provided URL
+
 ## 🧪 Testing
 
 ### Unit Tests
