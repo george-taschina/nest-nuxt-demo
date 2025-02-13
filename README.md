@@ -21,6 +21,7 @@ A full-stack application with Nuxt 3 frontend and NestJS backend in a monorepo s
    ```
 
 3. Update the environment variables in both `.env` files as needed
+4. run `npm install`
 
 ## 🛠️ Getting Started
 
