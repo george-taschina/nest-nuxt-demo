@@ -15,8 +15,8 @@ A full-stack application with Nuxt 3 frontend and NestJS backend in a monorepo s
 2. Copy environment files:
 
    ```bash
-   cp backend/.env.example backend/.env
-   cp frontend/.env.example frontend/.env
+   cp packages/backend/.env.example packages/backend/.env
+   cp packages/frontend/.env.example packages/frontend/.env
 
    ```
 

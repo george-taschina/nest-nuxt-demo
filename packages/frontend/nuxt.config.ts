@@ -24,11 +24,5 @@ export default defineNuxtConfig({
       environment: process.env.ENVIRONMENT,
     },
   },
-  modules: [
-    '@pinia/nuxt',
-    'pinia-plugin-persistedstate/nuxt',
-    '@nuxt/fonts',
-    '@nuxt/image',
-    '@nuxtjs/tailwindcss',
-  ],
+  modules: ['@pinia/nuxt', '@nuxt/fonts', '@nuxt/image', '@nuxtjs/tailwindcss'],
 });
