@@ -1,6 +1,5 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import SourceMap from 'source-map-support';
 import { GeorgeLogger } from '@has-george-read-backend/core';
 import { createLoggerModule } from '@has-george-read-backend/core/logger/utils';
 import { initSentry } from '@has-george-read-backend/core/logger/sentry';
@@ -17,8 +16,6 @@ import { APP_CONFIG_KEY } from './config/app-config.loader';
 import { InternalError } from '@has-george-read-backend/core/types/errors';
 import { isProd } from '@has-george-read-backend/core/utils/environments';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-
-SourceMap.install();
 
 async function bootstrap() {
   initSentry();

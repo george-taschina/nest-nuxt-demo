@@ -116,7 +116,7 @@ npm run backend:test:e2e
 
 ## 📄 License
 
-[APACHE 2.0](https://www.apache.org/licenses/LICENSE-2.0) - See the LICENSE file for details
+[MIT](https://opensource.org/license/mit) - See the LICENSE file for details
 
 ---
 
