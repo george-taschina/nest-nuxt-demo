@@ -38,7 +38,7 @@ make create-db   # Create and initialize database
 **Option 1: Docker Containers (Production-like)**
 
 > [!warning]
-> The version of nuxt/image package used in this project has some problems while running in containers or production build
+> The version of nuxt/image package used in this project has some problems while running in containers or production build, for development it is advisable to use Local Development approach
 
 - Access application at `http://localhost:8000`
 - API available at `http://localhost:3000`
@@ -60,7 +60,7 @@ When running the backend in development mode, Swagger UI is automatically availa
 `http://localhost:3000/docs`
 
 > [!warning]
-> The docs page could render blank, if that's the case copy the json from `http://localhost:3000/docs-json` and paste it in `https://editor.swagger.io/`
+> The docs page could render blank, if that's the case copy the json from `http://localhost:3000/docs-json` and paste it in `https://editor.swagger.io/` to view the documentation
 
 This interactive documentation provides:
 
@@ -92,200 +92,26 @@ npm run backend:test:e2e    # Run end-to-end tests
 
 ```bash
 .
-├── LICENSE
-├── Makefile
-├── README.md
-├── bruno
-├── docker
-│ └── devel
-│ ├── Dockerfile
-│ └── config
-│ └── zshrc
-├── docker-compose.yml
-├── eslint.config.mjs
-├── package-lock.json
-├── package.json
 ├── packages
 │ ├── backend #NestJs Application
-│ │ ├── README.md
 │ │ ├── apps
-│ │ │ └── api
-│ │ │ ├── src
-│ │ │ │ ├── app.module.ts
-│ │ │ │ ├── config
-│ │ │ │ │ └── app-config.loader.ts
-│ │ │ │ ├── main.ts
-│ │ │ │ └── types
-│ │ │ │ └── app-config.ts
-│ │ │ └── tsconfig.app.json
-│ │ ├── global.spec.d.ts
-│ │ ├── jest-e2e.json
-│ │ ├── jest.config.json
+│ │ │ └── api #EntryPoint Backend
 │ │ ├── libs
-│ │ │ ├── core
-│ │ │ │ ├── src
-│ │ │ │ │ ├── config
-│ │ │ │ │ │ ├── app-config.loader.ts
-│ │ │ │ │ │ ├── config-module-provider.ts
-│ │ │ │ │ │ ├── database-config.loader.ts
-│ │ │ │ │ │ └── redis-config.loader.ts
-│ │ │ │ │ ├── controllers
-│ │ │ │ │ │ └── controller-utils.ts
-│ │ │ │ │ ├── core.module.ts
-│ │ │ │ │ ├── filters
-│ │ │ │ │ │ └── george-exceptions.filter.ts
-│ │ │ │ │ ├── index.ts
-│ │ │ │ │ ├── logger
-│ │ │ │ │ │ ├── george.logger.ts
-│ │ │ │ │ │ ├── get-extra-logging-info.ts
-│ │ │ │ │ │ ├── log-fp-utils.ts
-│ │ │ │ │ │ ├── sentry.ts
-│ │ │ │ │ │ └── utils.ts
-│ │ │ │ │ ├── middleware
-│ │ │ │ │ │ └── logging.middleware.ts
-│ │ │ │ │ ├── modules
-│ │ │ │ │ │ ├── database-module.ts
-│ │ │ │ │ │ └── redis-module.ts
-│ │ │ │ │ ├── services
-│ │ │ │ │ │ ├── base.service.ts
-│ │ │ │ │ │ └── redis.service.ts
-│ │ │ │ │ ├── types
-│ │ │ │ │ │ ├── database-config.ts
-│ │ │ │ │ │ ├── environment-config.ts
-│ │ │ │ │ │ ├── environment.ts
-│ │ │ │ │ │ ├── errors.ts
-│ │ │ │ │ │ ├── redis-config.ts
-│ │ │ │ │ │ └── throwable.ts
-│ │ │ │ │ └── utils
-│ │ │ │ │ ├── environments.ts
-│ │ │ │ │ └── george-context.ts
-│ │ │ │ └── tsconfig.lib.json
-│ │ │ └── tour
-│ │ │ ├── src
-│ │ │ │ ├── controllers
-│ │ │ │ │ ├── booking.controller.ts
-│ │ │ │ │ ├── reservation.controller.ts
-│ │ │ │ │ └── tour.controller.ts
-│ │ │ │ ├── documentation
-│ │ │ │ │ ├── create-booking.ts
-│ │ │ │ │ └── create-reservation.ts
-│ │ │ │ ├── models
-│ │ │ │ │ ├── booking.entity.ts
-│ │ │ │ │ ├── entities-list.ts
-│ │ │ │ │ ├── reservation.entity.ts
-│ │ │ │ │ ├── tour.entity.ts
-│ │ │ │ │ └── user.entity.ts
-│ │ │ │ ├── repositories
-│ │ │ │ │ ├── booking.repository.ts
-│ │ │ │ │ ├── reservation.repository.ts
-│ │ │ │ │ ├── tour.repository.ts
-│ │ │ │ │ └── user.repository.ts
-│ │ │ │ ├── services
-│ │ │ │ │ ├── booking.service.ts
-│ │ │ │ │ ├── reservations.service.ts
-│ │ │ │ │ ├── tour.service.ts
-│ │ │ │ │ ├── user.service.ts
-│ │ │ │ │ └── utils
-│ │ │ │ │ └── tour.utils.ts
-│ │ │ │ └── tour.module.ts
-│ │ │ ├── test
-│ │ │ │ ├── fixtures
-│ │ │ │ │ ├── fixture-booking.ts
-│ │ │ │ │ ├── fixture-reservation.ts
-│ │ │ │ │ └── fixture-tour.ts
-│ │ │ │ ├── integration
-│ │ │ │ │ └── controllers
-│ │ │ │ │ └── tour.controller.e2e-spec.ts
-│ │ │ │ └── unit
-│ │ │ │ ├── controllers
-│ │ │ │ │ ├── reservation.controller.spec.ts
-│ │ │ │ │ └── tour.controller.spec.ts
-│ │ │ │ └── services
-│ │ │ │ ├── reservation.service.spec.ts
-│ │ │ │ └── tour.service.spec.ts
-│ │ │ └── tsconfig.lib.json
-│ │ ├── migrations
-│ │ │ └── Migration20250210203801.ts
-│ │ ├── mikro-orm.config.ts
-│ │ ├── nest-cli.json
-│ │ ├── package.json
-│ │ ├── seeders
-│ │ │ ├── BookingSeeder.ts
-│ │ │ ├── DatabaseSeeder.ts
-│ │ │ ├── ReservationSeeder.ts
-│ │ │ ├── TourSeeder.ts
-│ │ │ └── UserSeeder.ts
-│ │ ├── temp
-│ │ │ ├── Book.ts.json
-│ │ │ ├── Booking.ts.json
-│ │ │ ├── Reservation.ts.json
-│ │ │ ├── Tour.ts.json
-│ │ │ ├── TourMoods.ts.json
-│ │ │ └── User.ts.json
-│ │ ├── tsconfig.build.json
-│ │ ├── tsconfig.json
-│ │ └── webpack.config.js
-│ ├── frontend # Nuxt 3
-│ │ ├── README.md
-│ │ ├── app.vue
-│ │ ├── components
-│ │ │ ├── Navbar.vue
-│ │ │ ├── TourCard.vue
-│ │ │ └── george
-│ │ │ ├── Button.vue
-│ │ │ └── Input.vue
+│ │ │ ├── core #Main module containing configs, loggers and database module
+│ │ │ └── tour #Module containing the booking logic
+│ │ │ ├── test #Backend Tests
+│ │ ├── migrations #Migrations
+│ │ ├── mikro-orm.config.ts #Config useful for mikro-orm CLI
+│ │ ├── seeders #Seeders, also used for the env of e2e test
+│ ├── frontend # Nuxt 3 Application
+│ │ ├── components #Components
+│ │ │ └── george #Basic components like buttons or inputs
 │ │ ├── composables
-│ │ │ ├── useApi.ts
-│ │ │ ├── useBooking.ts
-│ │ │ ├── useReservation.ts
-│ │ │ └── useTour.ts
 │ │ ├── layouts
-│ │ │ └── default.vue
-│ │ ├── nuxt.config.ts
-│ │ ├── package.json
 │ │ ├── pages
-│ │ │ ├── booking
-│ │ │ │ └── [id]
-│ │ │ │ ├── pay.vue
-│ │ │ │ └── start.vue
-│ │ │ ├── expired.vue
-│ │ │ ├── index.vue
-│ │ │ └── success.vue
-│ │ ├── plugins
-│ │ │ └── api.ts
-│ │ ├── public
-│ │ │ ├── favicon.ico
-│ │ │ ├── logo.svg
-│ │ │ ├── palm.png
-│ │ │ ├── robots.txt
-│ │ │ └── traveler.webp
-│ │ ├── server
-│ │ │ └── tsconfig.json
 │ │ ├── stores
-│ │ │ └── useReservationStore.ts
-│ │ ├── tailwind.config.js
-│ │ ├── tsconfig.json
 │ │ └── utils
-│ │ ├── formatDate.ts
-│ │ └── formatPrice.ts
 │ └── shared # Shared directory for types of api calls
-│ ├── domain
-│ │ ├── http-error.ts
-│ │ └── tour
-│ │ ├── booking.ts
-│ │ ├── reservation.ts
-│ │ └── tour-get-available.ts
-│ ├── package.json
-│ ├── tsconfig.json
-│ └── types
-│ └── brand.ts
-├── redis
-│ ├── data
-│ │ └── dump.rdb
-│ └── redis.conf
-├── setup.sh
-├── start.sh
-└── tsconfig.json
 ```
 
 ## 🛠️ Common Commands

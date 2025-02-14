@@ -25,8 +25,8 @@ export const createFixtureTour = (
       party: 10,
     },
     totalSeats: 5,
-    bookings: reservations ?? [],
-    reservations: bookings ?? [],
+    bookings: bookings ?? [],
+    reservations: reservations ?? [],
   }) satisfies Tour;
 
 export const createFixtureAvailableTourResponse =
