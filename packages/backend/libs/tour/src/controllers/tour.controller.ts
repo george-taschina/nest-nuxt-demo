@@ -1,4 +1,4 @@
-import { TourGetAvailableResponse } from '@nest-nuxt-demo/shared/domain/tour/tour-get-available';
+import { type TourGetAvailableResponse } from '@nest-nuxt-demo/shared/domain/tour/tour-get-available';
 import { Controller, Get, Param } from '@nestjs/common';
 import { TourService } from '../services/tour.service';
 import {
@@ -12,7 +12,7 @@ import {
   ApiOkResponse,
   ApiOperation,
 } from '@nestjs/swagger';
-import { Type } from 'io-ts';
+import { TOUR_GET_RESPONSE_SCHEMA } from '../documentation/get-tour';
 
 @Controller('tours')
 export class TourController {
@@ -25,7 +25,8 @@ export class TourController {
   })
   @ApiOkResponse({
     description: 'Successfully retrieved list of tours',
-    type: Type<TourGetAvailableResponse[]>,
+    schema: TOUR_GET_RESPONSE_SCHEMA,
+    isArray: true,
   })
   @ApiBadRequestResponse({
     description: 'Database failed connection',
@@ -45,7 +46,7 @@ export class TourController {
   })
   @ApiOkResponse({
     description: 'Successfully retrieved tour',
-    type: Type<TourGetAvailableResponse>,
+    schema: TOUR_GET_RESPONSE_SCHEMA,
   })
   @ApiBadRequestResponse({
     description: 'Database failed connection',

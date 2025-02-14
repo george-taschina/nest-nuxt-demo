@@ -38,7 +38,7 @@ make create-db   # Create and initialize database
 **Option 1: Docker Containers (Production-like)**
 
 > [!warning]
-> The newest version of nuxt/image package has some problems while running in container or production build
+> The version of nuxt/image package used in this project has some problems while running in containers or production build
 
 - Access application at `http://localhost:8000`
 - API available at `http://localhost:3000`
@@ -58,6 +58,9 @@ npm run frontend:start:dev    # Start Nuxt 3 in dev mode
 
 When running the backend in development mode, Swagger UI is automatically available at:  
 `http://localhost:3000/docs`
+
+> [!warning]
+> The docs page could render blank, if that's the case copy the json from `http://localhost:3000/docs-json` and paste it in `https://editor.swagger.io/`
 
 This interactive documentation provides:
 
