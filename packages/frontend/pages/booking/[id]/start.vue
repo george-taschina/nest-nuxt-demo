@@ -1,53 +1,19 @@
 <script setup lang="ts">
-import {
-  reservationResponseCodec,
-  type ReservationResponse,
-} from '@nest-nuxt-demo/shared/domain/tour/reservation';
-import { pipe } from 'fp-ts/lib/function';
-import * as E from 'fp-ts/Either';
+import { type ReservationResponse } from '@nest-nuxt-demo/shared/domain/tour/reservation';
 import { useReservationStore } from '~/stores/useReservationStore';
 
-const { $pinia } = useNuxtApp();
-const { showError, errorMessage, clearError, triggerError } = useErrorHandler();
 const route = useRoute();
-const reservationStore = useReservationStore($pinia);
 const tourId = route.params.id as string;
 
-const { tourData } = await useTour(tourId, triggerError);
-const { reservation, reserveTour } = useReservation(tourId, triggerError);
+const { $pinia } = useNuxtApp();
+const reservationStore = useReservationStore($pinia);
+
+const { tourData } = await useTour(tourId);
+const { reservation, reserveTour } = useReservation(tourId);
 
 const numberOfPeople = ref(1);
 const email = ref('');
 const sentRequest = ref(false);
-
-const MIN_PEOPLE = 1;
-const { availableSeats } = tourData;
-
-const updatePeopleCount = (modification: 'increment' | 'decrement') => {
-  if (modification === 'increment' && numberOfPeople.value < availableSeats) {
-    numberOfPeople.value++;
-  } else if (
-    modification === 'decrement' &&
-    numberOfPeople.value > MIN_PEOPLE
-  ) {
-    numberOfPeople.value--;
-  }
-};
-
-const validateReservationResponse = (response: unknown) =>
-  pipe(
-    response,
-    reservationResponseCodec.decode,
-    E.match(
-      () => {
-        throw createError({
-          statusCode: 400,
-          statusMessage: 'Invalid reservation response format',
-        });
-      },
-      (validatedData) => validatedData
-    )
-  );
 
 const handleReservationSuccess = (
   validatedReservation: ReservationResponse
@@ -63,16 +29,16 @@ const handleSubmit = async () => {
   sentRequest.value = true;
   await reserveTour(email.value, numberOfPeople.value);
   sentRequest.value = false;
-  const validatedReservation = validateReservationResponse(reservation.value);
-  handleReservationSuccess(validatedReservation);
+  console.debug(reservation.value);
+  if (reservation.value) {
+    handleReservationSuccess(reservation.value);
+  }
 };
 </script>
 
 <template>
   <div class="min-h-screen container mx-auto p-6 max-w-6xl" v-if="tourData">
-    <ErrorModal :show="showError" :message="errorMessage" @close="clearError" />
     <div class="flex flex-col md:flex-row gap-8">
-      <!-- Booking Form -->
       <div class="flex-1 space-y-8">
         <header>
           <h1 class="text-3xl font-bold">
@@ -90,27 +56,10 @@ const handleSubmit = async () => {
           <section class="bg-white p-6 rounded-lg shadow-sm">
             <h2 class="text-xl font-semibold mb-6">Dettagli Viaggiatori</h2>
 
-            <div class="mb-8">
-              <label class="block font-medium mb-4">
-                Numero di partecipanti *
-              </label>
-              <div class="flex items-center gap-6">
-                <button
-                  type="button"
-                  @click="updatePeopleCount('decrement')"
-                  :disabled="numberOfPeople === MIN_PEOPLE"
-                  class="control-button"
-                >
-                  -
-                </button>
-                <span class="text-lg w-8 text-center">{{
-                  numberOfPeople
-                }}</span>
-                <button type="button" @click="updatePeopleCount('increment')">
-                  +
-                </button>
-              </div>
-            </div>
+            <PeopleCounter
+              v-model="numberOfPeople"
+              :available-seats="tourData.availableSeats"
+            />
 
             <GeorgeInput
               label="Email"

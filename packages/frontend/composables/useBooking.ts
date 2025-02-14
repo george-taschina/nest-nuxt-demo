@@ -1,38 +1,58 @@
-import { type BookingResponse } from '@nest-nuxt-demo/shared/domain/tour/booking';
-import type { HttpError } from '@nest-nuxt-demo/shared/domain/http-error';
+import {
+  bookingResponseCodec,
+  type BookingResponse,
+} from '@nest-nuxt-demo/shared/domain/tour/booking';
+import { pipe } from 'fp-ts/function';
+import * as E from 'fp-ts/Either';
+import { useErrorStore } from '~/stores/useErrorStore';
 
-export const useBooking = (
-  reservationId: string,
-  triggerError: (message: string) => void
-) => {
-  const config = useRuntimeConfig();
+const validateBookingResponse = (response: unknown) =>
+  pipe(
+    response,
+    bookingResponseCodec.decode,
+    E.match(
+      () => {
+        throw createError({
+          statusCode: 400,
+          statusMessage: 'Invalid booking response',
+        });
+      },
+      (validatedData) => validatedData
+    )
+  );
+
+export const useBooking = (reservationId: string) => {
+  const { $pinia } = useNuxtApp();
+  const { triggerError } = useErrorStore($pinia);
+
   const booking = ref<BookingResponse>();
-  const bookingError = ref<HttpError>();
 
   const bookTour = async () => {
     try {
-      const response = await fetch(config.public.apiBaseUrl + '/bookings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ reservationId }),
-      });
+      const { data, status, error } = await useLazyApi<BookingResponse>(
+        'bookings',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: { reservationId },
+        }
+      );
 
-      if (!response.ok) {
-        bookingError.value = await response.json();
+      if (status.value === 'error') {
         triggerError(
-          bookingError.value?.message?.join(' ') ||
+          error.value?.data.message.join(' ') ||
             'Something went wrong, try again.'
         );
         return;
       }
-      booking.value = await response.json();
-    } catch (error) {
-      triggerError('Something went wrong, try again.');
-      console.error('Booking failed:', error);
+
+      booking.value = validateBookingResponse(data.value);
+    } catch {
+      triggerError('Something went wrong in booking Tour, try again.');
     }
   };
 
-  return { booking, bookingError, bookTour };
+  return { booking, bookTour };
 };

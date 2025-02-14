@@ -1,36 +1,55 @@
-import { type ReservationResponse } from '@nest-nuxt-demo/shared/domain/tour/reservation';
-import type { HttpError } from '@nest-nuxt-demo/shared/domain/http-error';
+import {
+  reservationResponseCodec,
+  type ReservationResponse,
+} from '@nest-nuxt-demo/shared/domain/tour/reservation';
+import * as E from 'fp-ts/Either';
+import { pipe } from 'fp-ts/function';
 
-export const useReservation = (
-  tourId: string,
-  triggerError: (message: string) => void
-) => {
-  const config = useRuntimeConfig();
+const validateReservationResponse = (response: unknown) =>
+  pipe(
+    response,
+    reservationResponseCodec.decode,
+    E.match(
+      () => {
+        throw createError({
+          statusCode: 400,
+          statusMessage: 'Invalid reservation response format',
+        });
+      },
+      (validatedData) => validatedData
+    )
+  );
+
+export const useReservation = (tourId: string) => {
+  const { $pinia } = useNuxtApp();
+  const { triggerError } = useErrorStore($pinia);
+
   const reservation = ref<ReservationResponse>();
-  const reservationError = ref<HttpError>();
 
   const reserveTour = async (email: string, peopleCount: number) => {
     try {
-      const response = await fetch(config.public.apiBaseUrl + '/reservations', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ tourId, email, numberOfSeats: peopleCount }),
-      });
+      const { data, status, error } = await useLazyApi<ReservationResponse>(
+        'reservations',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: { tourId, email, numberOfSeats: peopleCount },
+        }
+      );
 
-      if (!response.ok) {
-        reservationError.value = await response.json();
+      if (status.value === 'error') {
         triggerError(
-          reservationError.value?.message?.join(' ') ||
+          error.value?.data.message.join(' ') ||
             'Something went wrong, try again.'
         );
         return;
       }
-      reservation.value = await response.json();
-    } catch (error) {
-      triggerError('Something went wrong, try again.');
-      console.error('Reservation failed:', error);
+
+      reservation.value = validateReservationResponse(data.value);
+    } catch {
+      triggerError('Something went wrong in reservation, try again.');
     }
   };
 

@@ -1,4 +1,12 @@
-<!-- components/ErrorModal.vue -->
+<script setup lang="ts">
+defineProps({
+  error: String,
+  show: Boolean,
+});
+
+const emit = defineEmits(['close']);
+</script>
+
 <template>
   <div
     v-if="show"
@@ -12,10 +20,10 @@
         <h3 class="text-xl font-semibold">Errore!</h3>
       </div>
 
-      <p class="text-gray-600 mb-6">{{ message }}</p>
+      <p class="text-gray-600 mb-6">{{ error }}</p>
 
       <button
-        @click="closeModal"
+        @click="emit('close')"
         class="w-full px-4 py-2 text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors"
       >
         Chiudi
@@ -23,16 +31,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-const props = defineProps({
-  show: Boolean,
-  message: String,
-});
-
-const emit = defineEmits(['close']);
-
-const closeModal = () => {
-  emit('close');
-};
-</script>

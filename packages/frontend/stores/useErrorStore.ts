@@ -1,4 +1,7 @@
-export const useErrorHandler = () => {
+import { defineStore } from 'pinia';
+import { ref } from 'vue';
+
+export const useErrorStore = defineStore('error', () => {
   const errorMessage = ref('');
   const showError = ref(false);
 
@@ -18,4 +21,4 @@ export const useErrorHandler = () => {
     triggerError,
     clearError,
   };
-};
+});
