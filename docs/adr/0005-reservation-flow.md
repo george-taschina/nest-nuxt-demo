@@ -1,7 +1,3 @@
-Here’s an improved version of your ADR with more clarity, structure, and detail:
-
----
-
 # ADR 005: Handling Reservation Conflicts for Booking System
 
 ## Context

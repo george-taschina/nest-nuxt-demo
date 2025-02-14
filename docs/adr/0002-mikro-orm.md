@@ -1,6 +1,4 @@
-# Architecture Decision Record (ADR)
-
-## ADR 002: Choose Mikro-ORM for the Demo Project
+# ADR 002: Choose Mikro-ORM for the Demo Project
 
 ### Context
 

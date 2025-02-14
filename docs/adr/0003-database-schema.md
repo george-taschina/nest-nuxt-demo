@@ -1,6 +1,4 @@
-# Architecture Decision Record (ADR)
-
-## ADR 003: Database Schema Design for Tours, Reservations, and Bookings
+# ADR 003: Database Schema Design for Tours, Reservations, and Bookings
 
 ## Context
 

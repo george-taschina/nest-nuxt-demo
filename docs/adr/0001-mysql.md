@@ -1,5 +1,3 @@
-# Architecture Decision Record (ADR)
-
 # ADR 001: Choose MySQL for the Demo Project
 
 ## Context
