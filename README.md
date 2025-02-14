@@ -37,6 +37,9 @@ make create-db   # Create and initialize database
 
 **Option 1: Docker Containers (Production-like)**
 
+> [!warning]
+> The newest version of nuxt/image package has some problems while running in container or production build
+
 - Access application at `http://localhost:8000`
 - API available at `http://localhost:3000`
 

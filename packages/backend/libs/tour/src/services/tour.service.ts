@@ -10,9 +10,9 @@ import {
 import { pipe } from 'fp-ts/function';
 import { TourGetAvailableResponse } from '@nest-nuxt-demo/shared/domain/tour/tour-get-available';
 import {
+  countTotalOccupiedSeats,
   isTourFullyBooked,
-  mapTourToGetAvailableResponse,
-} from './utils/tour.utils';
+} from '../utils/tour.utils';
 import * as O from 'fp-ts/Option';
 import { Tour } from '../models/tour.entity';
 
@@ -50,7 +50,7 @@ export class TourService extends BaseService {
       this.tourRepository.getAvailableTours(),
       TE.map((tours) => tours.filter((tour) => !isTourFullyBooked(tour))),
       TE.map((tours) => {
-        return tours.map((tour) => mapTourToGetAvailableResponse(tour));
+        return tours.map((tour) => this.mapTourToGetAvailableResponse(tour));
       })
     );
   }
@@ -60,7 +60,22 @@ export class TourService extends BaseService {
   ): TE.TaskEither<DatabaseError | NotFoundError, TourGetAvailableResponse> {
     return pipe(
       this.findByIdOrFail(tourId),
-      TE.map((tour) => mapTourToGetAvailableResponse(tour))
+      TE.map((tour) => this.mapTourToGetAvailableResponse(tour))
     );
+  }
+
+  public mapTourToGetAvailableResponse(tour: Tour): TourGetAvailableResponse {
+    return {
+      id: tour.id,
+      slug: tour.slug,
+      name: tour.name,
+      description: tour.description,
+      startingDate: tour.startingDate,
+      endingDate: tour.endingDate,
+      price: tour.price,
+      totalSeats: tour.totalSeats,
+      moods: tour.moods,
+      availableSeats: tour.totalSeats - countTotalOccupiedSeats(tour),
+    };
   }
 }

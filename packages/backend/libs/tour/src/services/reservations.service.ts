@@ -12,7 +12,7 @@ import {
 import { pipe } from 'fp-ts/function';
 import { TourService } from './tour.service';
 import * as O from 'fp-ts/Option';
-import { countTotalOccupiedSeats } from './utils/tour.utils';
+import { countTotalOccupiedSeats } from '../utils/tour.utils';
 import * as T from 'fp-ts//Task';
 
 export const SECONDS_TO_RESERVE_SEATS = 900;
