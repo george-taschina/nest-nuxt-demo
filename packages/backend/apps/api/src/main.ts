@@ -5,7 +5,6 @@ import { createLoggerModule } from '@nest-nuxt-demo-backend/core/logger/utils';
 import { initSentry } from '@nest-nuxt-demo-backend/core/logger/sentry';
 import helmet from 'helmet';
 import * as Sentry from '@sentry/node';
-import { json } from 'express';
 import {
   INestApplication,
   ValidationPipe,
@@ -25,7 +24,6 @@ async function bootstrap() {
   });
 
   app.use(helmet());
-  app.use(json({ limit: '100kb' }));
 
   app.enableVersioning({
     defaultVersion: '1',

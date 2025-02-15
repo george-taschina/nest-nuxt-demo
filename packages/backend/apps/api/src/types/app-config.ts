@@ -11,7 +11,6 @@ export const appConfigCodec = t.type({
       whitelist: types.readonlyNonEmptyArray(t.string),
     }),
   ]),
-  healthApiKey: t.string,
 });
 
 export type AppConfig = t.TypeOf<typeof appConfigCodec>;

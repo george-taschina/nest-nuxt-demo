@@ -17,7 +17,6 @@ const appConfig = (): AppConfig | never => {
       : {
           type: 'open',
         },
-    healthApiKey: process.env.HEALTH_API_KEY,
   };
 
   const validation = appConfigCodec.decode(config);
