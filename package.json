@@ -14,6 +14,7 @@
     "backend:test": "npm --C packages/backend run test",
     "backend:test:e2e": "npm --C packages/backend run test:e2e",
     "backend:typecheck": "npm --C packages/backend run typecheck",
+    "frontend:test": "npm --C packages/frontend run test",
     "frontend:start:dev": "npm --C packages/frontend run dev",
     "frontend:build": "npm --C packages/frontend run build",
     "frontend:start:prod": "npm --C packages/frontend run preview",

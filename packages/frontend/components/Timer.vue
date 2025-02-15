@@ -37,7 +37,7 @@ onUnmounted(() => {
       I posti vi sono stati riservati per un tempo limitato, completare il
       checkout entro la scadenza del timer
     </p>
-    <p class="text-lg font-bold text-red-500 mt-2">
+    <p class="text-lg font-bold text-red-500 mt-2" id="time-left-timer">
       {{ timeLeft }}
     </p>
   </div>

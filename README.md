@@ -68,6 +68,7 @@ This interactive documentation provides:
 
 ```bash
 npm run backend:test
+npm run frontend:test
 ```
 
 ### E2E Tests
@@ -128,6 +129,7 @@ npm run backend:start:prod
 
 # Testing
 npm run backend:test
+npm run frontend:test
 npm run backend:test:e2e
 ```
 
