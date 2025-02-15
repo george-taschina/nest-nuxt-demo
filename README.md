@@ -62,6 +62,9 @@ This interactive documentation provides:
 1. Ensure you're running the backend with `npm run backend:start:dev`
 2. Open the Swagger UI in your browser at the provided URL
 
+📜 Architecture Decision Records (ADR)
+You can find the Architecture Decision Records (ADR) for this project in the /docs/adr directory. These documents provide insights into the architectural decisions made throughout the project.
+
 ## 🧪 Testing
 
 ### Unit Tests
