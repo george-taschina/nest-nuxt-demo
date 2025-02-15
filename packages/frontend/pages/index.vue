@@ -13,7 +13,7 @@ const { data, status, error } =
 </script>
 
 <template>
-  <div class="min-h-screen mt-10 md:mt-24 px-4 sm:px-6 lg:px-8">
+  <div class="min-h-screen md:mt-24 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
       <div>
         <h1
@@ -46,7 +46,8 @@ const { data, status, error } =
         </div>
       </div>
 
-      <div class="mt-16">
+      <div class="py-5">
+        <h2 class="text-3xl text-center mb-6">Find your next escape!</h2>
         <div v-if="status === 'pending'" class="text-center text-gray-500">
           Loading tours...
         </div>

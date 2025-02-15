@@ -7,7 +7,7 @@ const errorStore = useErrorStore($pinia);
 <template>
   <div>
     <Navbar />
-    <main class="pt-16">
+    <main class="pt-16 md:pt-14">
       <ErrorModal
         :error="errorStore.errorMessage"
         :show="errorStore.showError"
