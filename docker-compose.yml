@@ -1,39 +1,6 @@
 services:
-  george_devel_backend:
-    build: ${PWD}/docker/devel
-    container_name: george_devel_backend
-    hostname: george_be
-    command: ['npm', 'run', 'backend:start:dev']
-    ports:
-      - '3000:3000'
-    tty: true
-    environment:
-      - CI_JOB_TOKEN=${CI_JOB_TOKEN}
-      - MIKRO_ORM_HOST=george_mysql
-      - REDIS_HOST=george_redis
-    volumes:
-      - ./:/app/
-    depends_on:
-      - george_mysql
-    user: 1000:1000
-  george_devel_frontend:
-    build: ${PWD}/docker/devel
-    container_name: george_devel_frontend
-    hostname: george_fe
-    command: ['npm', 'run', 'frontend:start:dev']
-    ports:
-      - '8000:8000'
-    tty: true
-    environment:
-      - CI_JOB_TOKEN=${CI_JOB_TOKEN}
-      - API_BASE_URL=http://george_be:3000/v1
-    volumes:
-      - ./:/app/
-    depends_on:
-      - george_devel_backend
-      - george_mysql
   george_mysql:
-    image: mysql:5.7
+    image: mysql:8.4
     container_name: george_mysql
     hostname: george_mysql
     ports:

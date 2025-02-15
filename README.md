@@ -33,20 +33,9 @@ make start       # Start all services in Docker containers
 make create-db   # Create and initialize database
 ```
 
-### Development Modes
-
-**Option 1: Docker Containers (Production-like)**
-
-> [!warning]
-> The version of nuxt/image package used in this project has some problems while running in containers or production build, for development it is advisable to use Local Development approach
-
-- Access application at `http://localhost:8000`
-- API available at `http://localhost:3000`
-
-**Option 2: Local Development**
+### Development Mode
 
 ```bash
-docker stop george_devel_backend george_devel_frontend  # Stop containers if running
 npm run backend:start:dev     # Start NestJS in dev mode
 npm run frontend:start:dev    # Start Nuxt 3 in dev mode
 ```
