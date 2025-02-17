@@ -17,7 +17,6 @@ A full-stack application with Nuxt 3 frontend and NestJS backend in a monorepo s
    ```bash
    cp packages/backend/.env.example packages/backend/.env
    cp packages/frontend/.env.example packages/frontend/.env
-
    ```
 
 3. Update the environment variables in both `.env` files as needed
@@ -33,7 +32,24 @@ make start       # Start all services in Docker containers
 make create-db   # Create and initialize database
 ```
 
-### Development Mode
+### Development Modes
+
+**Option 1: Docker Containers (Production-like)**
+
+> [!warning]
+> The version of nuxt/image package used in this project has some problems while running in containers or production build, for development it is advisable to use Local Development approach
+
+Run the following commands to start the env in the containers:
+
+```bash
+make start-api-dev
+make start-fe-dev
+```
+
+- Access application at `http://localhost:8000`
+- API available at `http://localhost:3000`
+
+**Option 2: Local Development**
 
 ```bash
 npm run backend:start:dev     # Start NestJS in dev mode

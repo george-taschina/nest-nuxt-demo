@@ -3,6 +3,7 @@ export default defineNuxtRouteMiddleware(() => {
   const reservationStore = useReservationStore($pinia);
 
   if (reservationStore.reservation === null || reservationStore.tour === null) {
+    console.debug('im rediredicing you');
     return navigateTo('/');
   }
 });
